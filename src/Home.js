@@ -4,6 +4,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { styled } from '@mui/system';
 import { Box, Tab } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ItemContext, { ItemContextProvider } from './ItemContextProvider';
 import ItemListPagination from './ItemListPagination';
@@ -11,7 +12,7 @@ import LoadingAnimation from './LoadingAnimation';
 import Brands from './Brands';
 import Products from './Products';
 import Inventory from './Inventory';
-
+import './tables.css';
 
 function Home() {
 
@@ -49,15 +50,20 @@ function Home() {
         padding: 0
     })
 
+    const StyledLink = styled(Link)({
+        textDecoration: "none",
+        color: 'inherit'
+    })
+
     return (
             <MyBox sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={tabNumber}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleTabChange} aria-label="Sort By Tab">
                             <Tab label={<LogoTab />} value={"0"} disabled />
-                            <MyTab label="Brands" value="1" />
-                            <MyTab label="Products" value="2" />
-                            <MyTab label="Inventory" value="3" />
+                            <MyTab label={<StyledLink to="/brands">Brands</StyledLink>} value="1" />
+                            <MyTab label={<StyledLink to="/brands">Products</StyledLink>} value="2" />
+                            <MyTab label={<StyledLink to="/brands">Inventory</StyledLink>} value="3" />
                         </TabList>
                     </Box>
                     <MyTabPanel value="1">

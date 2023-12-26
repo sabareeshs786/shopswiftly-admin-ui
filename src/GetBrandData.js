@@ -1,17 +1,19 @@
+import EditDeleteButtons from "./EditDeleteButtons";
+
 const createCounter = () => {
     let count = 0;
-  
+
     const incrementCounter = () => {
-      count += 1;
-      return count;
+        count += 1;
+        return count;
     };
-  
+
     return incrementCounter;
 };
 const counter = createCounter();
 
 function createData(brand, category) {
-    return { sno: counter(), brand, category, actions: 'edit, delete'};
+    return { sno: counter(), brand, category, actions: (<EditDeleteButtons />) };
 }
 
 const rows = [

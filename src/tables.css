@@ -1,0 +1,23 @@
+.pagination-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 1.5rem;
+}
+
+.page-num-and-count{
+    flex: 1;
+    text-align: left;
+    padding-inline-start: 1.5rem;
+}
+
+.pagination-content{
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dummy-div{
+    flex: 1;
+}
