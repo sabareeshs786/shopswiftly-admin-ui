@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.my-container{
+  width: 80%;
+  margin: 0 auto;
+}
+
+h4.main-heading{
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}

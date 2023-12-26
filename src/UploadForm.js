@@ -5,7 +5,6 @@ import './uploadform.css';
 import Notification from './Notification';
 
 const UploadForm = () => {
-    // For notification
     const [notification, setNotification] = useState(null);
     const showNotification = (message, type) => {
         setNotification({ message, type });

@@ -1,0 +1,57 @@
+import styled from "@emotion/styled";
+import { TableCell, TableRow, tableCellClasses } from "@mui/material";
+import { createContext, useState } from "react";
+
+const TableContext = createContext({});
+
+export const TableContextProvider = ({children}) => {
+    const StyledTableCell = styled(TableCell)({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: 'rgb(0,0,255, 0.7)',
+            color: '#fff',
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    });
+
+    const StyledTableRow = styled(TableRow)({
+        '&:nth-of-type(odd)': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)'
+        },
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    });
+
+    const brandColumns = [
+        { id: 'sno', label: 'Sno', minWidth: 17 },
+        { id: 'brand', label: 'Brand', minWidth: 100 },
+        {
+            id: 'category',
+            label: 'Category',
+            minWidth: 100,
+            format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+            id: 'actions',
+            label: 'Actions',
+            minWidth: 170,
+            format: (value) => value.toLocaleString('en-US'),
+        },
+    ];
+    const [page, setPage] = useState(0);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+    return (
+        <TableContext.Provider value={{
+            brandColumns, page, StyledTableCell, StyledTableRow, handleChangePage
+        }}>
+            {children}
+        </TableContext.Provider>
+    )
+}
+
+export default TableContext;
