@@ -5,7 +5,6 @@ import TableContainer from '@mui/material/TableContainer';
 import MyTableHeader from './MyTableHeader';
 import MyTableBody from './MyTableBody';
 import MyTableFooter from './MyTableFooter';
-import { TablePagination } from '@mui/material';
 
 function MyTable({ tablename, colnum }) {
     return (
