@@ -1,7 +1,7 @@
 import EditDeleteButtons from "../components/EditDeleteButtons";
 
-const createCounter = () => {
-    let count = 0;
+const createCounter = (sVal) => {
+    let count = sVal;
 
     const incrementCounter = () => {
         count += 1;
@@ -10,17 +10,18 @@ const createCounter = () => {
 
     return incrementCounter;
 };
-const counter = createCounter();
 
-function createData(brand, category) {
-    return { sno: counter(), brand, category, actions: (<EditDeleteButtons />) };
+function createData(row, counter) {
+    return { bcCode: row.bcCode, sno: counter(), brand: row.brand, category: row.category, actions: (<EditDeleteButtons />) };
 }
 
-const rows = [
-    createData('apple', 'mobiles'),
-    createData('samsung', 'mobiles'),
-    createData('oppo', 'mobiles'),
-    createData('vivo', 'mobiles'),
-];
+const getBrandRows = (resData, sVal) => {
+    const counter = createCounter(sVal);
+    const mappedResData = resData.map((row) => {
+        return createData(row, counter);
+    });
 
-export default rows;
+    return mappedResData;
+}
+
+export default getBrandRows;

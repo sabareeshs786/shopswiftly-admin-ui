@@ -40,14 +40,21 @@ export const TableContextProvider = ({children}) => {
             format: (value) => value.toLocaleString('en-US'),
         },
     ];
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
 
-    const handleChangePage = (event, newPage) => {
+    const handleChangePage = (e, newPage) => {
         setPage(newPage);
     };
+
+    const handleChangePageSize = (e, newPageSize) => {
+        setPageSize(newPageSize);
+    }
+
     return (
         <TableContext.Provider value={{
-            brandColumns, page, StyledTableCell, StyledTableRow, handleChangePage
+            brandColumns, page, StyledTableCell, StyledTableRow, 
+            handleChangePage, pageSize, setPageSize, handleChangePageSize
         }}>
             {children}
         </TableContext.Provider>

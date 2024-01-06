@@ -40,10 +40,11 @@ export const LoginContextProvider = ({ children }) => {
             );
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
+            console.log(setAuth);
             setAuth({ user, pwd, roles, accessToken });
             resetUser();
             setPwd('');
-            navigate(from, { replace: true });
+            navigate(from, {replace: true});
         } catch (err) {
             handleError({err, setErrMsg, errRef});
         }
