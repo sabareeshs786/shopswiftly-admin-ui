@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Home from './Home';
-import { ItemContextProvider } from './ItemContextProvider';
+import Home from './components/Home';
+import { ItemContextProvider } from './context/ItemContextProvider';
 
 function App() {
   return (

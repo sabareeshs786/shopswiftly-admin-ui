@@ -1,4 +1,4 @@
-import EditDeleteButtons from "./EditDeleteButtons";
+import EditDeleteButtons from "../components/EditDeleteButtons";
 
 const createCounter = () => {
     let count = 0;

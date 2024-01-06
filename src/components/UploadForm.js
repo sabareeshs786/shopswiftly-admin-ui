@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
-import './uploadform.css';
+import '../css/uploadform.css';
 import Notification from './Notification';
 
 const UploadForm = () => {

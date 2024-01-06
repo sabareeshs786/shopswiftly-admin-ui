@@ -1,6 +1,6 @@
 import { TableHead, TableRow } from '@mui/material';
 import React, { useContext } from 'react'
-import TableContext from './TableContext';
+import TableContext from '../context/TableContext';
 
 function MyTableHeader({tablename}) {
     const { brandColumns, StyledTableCell } = useContext(TableContext);

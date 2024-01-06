@@ -1,7 +1,7 @@
 import { TableBody } from '@mui/material';
 import React, { useContext } from 'react'
-import rows from './GetBrandData';
-import TableContext from './TableContext';
+import rows from '../data/GetBrandData';
+import TableContext from '../context/TableContext';
 
 function MyTableBody({tablename}) {
     const {brandColumns, StyledTableCell, StyledTableRow } = useContext(TableContext);

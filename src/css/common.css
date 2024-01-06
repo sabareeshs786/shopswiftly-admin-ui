@@ -1,0 +1,21 @@
+@media (max-width: 575.98px){
+    html {
+        font-size: 1.8vw;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px){
+    html {
+        font-size: 1.4vw;
+    }
+}
+
+@media (min-width: 992px){
+    html {
+        font-size: 0.9vw;
+    }
+}
+
+.price{
+    font-weight: 700;
+}

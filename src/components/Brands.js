@@ -1,6 +1,6 @@
 import React from 'react';
 import MyTable from './MyTable';
-import { TableContextProvider } from './TableContext';
+import { TableContextProvider } from '../context/TableContext';
 
 function Brands() {
 

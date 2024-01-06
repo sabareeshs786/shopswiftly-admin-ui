@@ -6,13 +6,13 @@ import { Box, Tab } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ItemContext, { ItemContextProvider } from './ItemContextProvider';
+import ItemContext, { ItemContextProvider } from '../context/ItemContextProvider';
 import ItemListPagination from './ItemListPagination';
 import LoadingAnimation from './LoadingAnimation';
 import Brands from './Brands';
 import Products from './Products';
 import Inventory from './Inventory';
-import './tables.css';
+import '../css/tables.css';
 
 function Home() {
 
