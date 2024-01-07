@@ -2,7 +2,7 @@ import React from 'react'
 import MyPagination from './MyPagination';
 import TableFooter from '@mui/material/TableFooter';
 import { TableCell, TableRow } from '@mui/material';
-function MyTableFooter({colnum}) {
+function MyTableFooter({colnum, page, pageCount}) {
     return (
         <TableFooter >
             <TableRow>

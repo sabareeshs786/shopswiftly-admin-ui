@@ -7,13 +7,14 @@ import MyTableBody from './MyTableBody';
 import MyTableFooter from './MyTableFooter';
 
 function MyTable({ tablename, colnum }) {
+
     return (
         <Paper sx={{ width: 'auto', maxWidth: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: '100vh' }}>
                 <Table stickyHeader aria-label="sticky table">
                     <MyTableHeader tablename={tablename} />
                     <MyTableBody tablename={tablename} />
-                    <MyTableFooter colnum={colnum}/>
+                    <MyTableFooter colnum={colnum} />
                 </Table>
             </TableContainer>
         </Paper>

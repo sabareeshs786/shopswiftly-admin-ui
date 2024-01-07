@@ -1,11 +1,13 @@
-import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import styled from '@emotion/styled';
+import { useContext } from 'react';
+import TableContext from '../context/TableContext';
 
-export default function MyPagination({page, pageCount, handlePageChange}) {
-    const MyPagination = styled(Pagination)({
+export default function MyPagination() {
+    const { page, pageCount, handlePageChange } = useContext(TableContext);
+    
+    const MyPagination = styled(Pagination)({});
 
-    });
     return (
         <>
             <div className='pagination-container'>
