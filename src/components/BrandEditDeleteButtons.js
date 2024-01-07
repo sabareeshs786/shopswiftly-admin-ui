@@ -1,14 +1,12 @@
 import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-function EditDeleteButtons() {
+import EditDialog from './EditDialog';
+function BrandEditDeleteButtons({brand, category, bcCode}) {
     return (
         <Stack direction="row" spacing={1}>
-            <IconButton aria-label="edit" color="success">
-                <EditIcon />
-            </IconButton>
+                <EditDialog brand={brand} category={category} bcCode={bcCode} />
             <IconButton aria-label="delete" color='error'>
                 <DeleteIcon />
             </IconButton>
@@ -16,4 +14,4 @@ function EditDeleteButtons() {
     )
 }
 
-export default EditDeleteButtons;
+export default BrandEditDeleteButtons;

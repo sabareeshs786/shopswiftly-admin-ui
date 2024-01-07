@@ -62,8 +62,8 @@ function Home() {
                         <TabList onChange={handleTabChange} aria-label="Sort By Tab">
                             <Tab label={<LogoTab />} value={"0"} disabled />
                             <MyTab label={<StyledLink to="/brands">Brands</StyledLink>} value="1" />
-                            <MyTab label={<StyledLink to="/brands">Products</StyledLink>} value="2" />
-                            <MyTab label={<StyledLink to="/brands">Inventory</StyledLink>} value="3" />
+                            <MyTab label={<StyledLink to="/products">Products</StyledLink>} value="2" />
+                            <MyTab label={<StyledLink to="/inventory">Inventory</StyledLink>} value="3" />
                         </TabList>
                     </Box>
                     <MyTabPanel value="1">

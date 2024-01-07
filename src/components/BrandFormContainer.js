@@ -6,10 +6,10 @@ import NotificationBar from './generic/NotificationBar';
 import { isvalidInputData } from '../utils/ValidateInput';
 
 
-function BrandFormContainer() {
+function BrandFormContainer({b, c, isEdit, bcCode}) {
     const brandRef = useRef();
-    const [brand, setBrand] = useState('');
-    const [category, setCategory] = useState('');
+    const [brand, setBrand] = useState(b || '');
+    const [category, setCategory] = useState(c || '');
     const [brandFocus, setBrandFocus] = useState(true);
     const [categoryFocus, setCategoryFocus] = useState(false);
     const [noteType, setNoteType] = useState('');
@@ -32,10 +32,12 @@ function BrandFormContainer() {
         e.preventDefault();
 
         try {
-            if(!isvalidInputData({brand, category})){
+            console.log(isEdit, {brand, category, bcCode});
+            if((isEdit && !isvalidInputData({brand, category, bcCode})) || !isvalidInputData({brand, category})){
                 throw new Error("Invalid input data");
             }
-            const response = await api.post(BRAND_URL, { brand, category });
+
+            const response = isEdit ? await api.put(BRAND_URL, { brand, category, bcCode}) : await api.post(BRAND_URL, {brand, category});
             setOpen(true);
             setNoteType('success');
             setMessage(response.data.message);
@@ -51,7 +53,7 @@ function BrandFormContainer() {
             <section className='field-container'>
                 <div className="card custom-card">
                     <div className="card-body">
-                        <h3>Add Brand</h3>
+                        <h3>{isEdit ? "Edit" : "Add"} Brand</h3>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="brand" className="form-label custom-label">Brand</label>
@@ -82,7 +84,7 @@ function BrandFormContainer() {
                                     placeholder="Enter category"
                                 />
                             </div>
-                            <SubmitButton content="Add" />
+                            <SubmitButton content={isEdit ? "Edit" : "Add"} />
                             <button
                                 type='reset'
                                 className="btn btn-secondary resetbutton"

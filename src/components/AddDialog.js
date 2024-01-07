@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import '../css/form.css';
 import BrandFormContainer from './BrandFormContainer';
+import TableContext from '../context/TableContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -16,6 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AddDialog() {
   const [open, setOpen] = React.useState(false);
+  const {update, setUpdate} = React.useContext(TableContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,6 +25,7 @@ export default function AddDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setUpdate(update + 1);
   };
 
   return (

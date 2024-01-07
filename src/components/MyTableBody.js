@@ -22,7 +22,7 @@ function MyTableBody({ tablename }) {
     };
 
     const [rows, setRows] = useState(null);
-    const { page, pageSize, setPageCount } = useContext(TableContext);
+    const { page, pageSize, setPageCount, update } = useContext(TableContext);
     const auth = useAuth();
     const api = axios.create({
         baseURL: 'http://localhost:3501',
@@ -31,28 +31,28 @@ function MyTableBody({ tablename }) {
             'Content-Type': 'application/json',
         },
     });
-    
+
     useEffect(() => {
-        const getBrandData = async () => {
+        const getData = async () => {
             const queryParam = { page, pageSize };
             const response = await api.get(URL, { params: queryParam });
             const rows = getBrandRows(response.data.brands, (page - 1) * pageSize);
             setRows(rows);
             setPageCount(Math.ceil(response.data.totalCount / pageSize));
         };
-        getBrandData();
-    }, [page, pageSize]);
+        getData();
+    }, [page, pageSize, update]);
 
     return (
         <TableBody>
             {rows && rows
-                .map((row) => {
+                .map((row, i) => {
                     return (
                         <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                             {columns.map((column) => {
                                 const value = row[column.id];
                                 return (
-                                    <StyledTableCell key={row.id} align={column?.align || 'left'}>
+                                    <StyledTableCell key={i} align={column?.align || 'left'}>
                                         {value}
                                     </StyledTableCell>
                                 );
