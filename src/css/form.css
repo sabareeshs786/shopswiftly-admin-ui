@@ -1,0 +1,30 @@
+.field-container{
+    align-items: center;
+    justify-content: center;
+    width: 25rem;
+    margin: 30px auto;
+}
+
+.custom-card{
+    padding: 0rem;
+}
+
+.custom-label {
+    margin-top: 0.4rem;
+}
+
+.submitbutton{
+    border: none;
+    border-radius: 6px;
+    width: 40%;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.resetbutton{
+    border: none;
+    border-radius: 6px;
+    width: 44%;
+    color: #fff;
+    margin-left: 10px;
+}

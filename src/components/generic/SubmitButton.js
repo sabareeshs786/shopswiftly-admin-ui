@@ -3,7 +3,6 @@ export default function SubmitButton({content, className = "btn btn-primary subm
         <button
             type="submit"
             className={className}
-            style={{margin: '10px 0'}}
         >{content}</button>
     );
 }
