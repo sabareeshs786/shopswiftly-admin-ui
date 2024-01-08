@@ -1,4 +1,4 @@
-import BrandEditDeleteButtons from "../components/BrandEditDeleteButtons";
+import EditDeleteButtons from "../components/EditDeleteButtons";
 
 const createCounter = (sVal) => {
     let count = sVal;
@@ -17,7 +17,7 @@ function createData(row, counter) {
         sno: counter(), 
         brand: row.brand, 
         category: row.category, 
-        actions: (<BrandEditDeleteButtons brand={row.brand} category={row.category} bcCode={row.bcCode} />)
+        actions: (<EditDeleteButtons tablename="brands" data={{b: row.brand, c: row.category, bcCode: row.bcCode}} />)
     };
 }
 

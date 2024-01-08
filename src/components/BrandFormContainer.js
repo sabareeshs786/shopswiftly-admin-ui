@@ -6,16 +6,17 @@ import NotificationBar from './generic/NotificationBar';
 import { isvalidInputData } from '../utils/ValidateInput';
 
 
-function BrandFormContainer({b, c, isEdit, bcCode}) {
+function BrandFormContainer({isEdit, data}) {
     const brandRef = useRef();
-    const [brand, setBrand] = useState(b || '');
-    const [category, setCategory] = useState(c || '');
+    const [brand, setBrand] = useState((data && data.b) || '');
+    const [category, setCategory] = useState((data && data.c) || '');
     const [brandFocus, setBrandFocus] = useState(true);
     const [categoryFocus, setCategoryFocus] = useState(false);
     const [noteType, setNoteType] = useState('');
     const [message, setMessage] = useState('');
-    const [open, setOpen] = React.useState(false);
+    const [notify, setNotify] = React.useState(false);
     const BRAND_URL = '/brands';
+    const bcCode = (data && data.bcCode) || '';
     const auth = useAuth();
     const api = axios.create({
         baseURL: 'http://localhost:3501',
@@ -32,17 +33,16 @@ function BrandFormContainer({b, c, isEdit, bcCode}) {
         e.preventDefault();
 
         try {
-            console.log(isEdit, {brand, category, bcCode});
             if((isEdit && !isvalidInputData({brand, category, bcCode})) || !isvalidInputData({brand, category})){
                 throw new Error("Invalid input data");
             }
 
             const response = isEdit ? await api.put(BRAND_URL, { brand, category, bcCode}) : await api.post(BRAND_URL, {brand, category});
-            setOpen(true);
+            setNotify(true);
             setNoteType('success');
             setMessage(response.data.message);
         } catch (err) {
-            setOpen(true);
+            setNotify(true);
             setNoteType('error');
             setMessage(err?.response?.data?.message || err?.message);
         }
@@ -94,7 +94,7 @@ function BrandFormContainer({b, c, isEdit, bcCode}) {
                     </div>
                 </div>
             </section>
-            {open && <NotificationBar noteType={noteType} message={message} open={open} setOpen={setOpen} />}
+            {notify && <NotificationBar noteType={noteType} message={message} notify={notify} setNotify={setNotify} />}
         </>
     )
 }

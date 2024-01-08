@@ -1,14 +1,15 @@
 import React from 'react';
 import MyTable from './MyTable';
 import { TableContextProvider } from '../context/TableContext';
-import AddDialog from './AddDialog';
+import AddEditModal from './AddEditModal';
 
 function Brands() {
+    
     return (
         <div className='my-container'>
             <TableContextProvider>
                 <h4 className='main-heading'>Brands</h4>
-                <AddDialog />
+                <AddEditModal tablename="brands" isEdit={false}/>
                 <br />
                 <br />
                 <MyTable tablename={"brands"} colnum={4} />
