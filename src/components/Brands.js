@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import MyTable from './MyTable';
-import TableContext, { TableContextProvider } from '../context/TableContext';
+import TableContext from '../context/TableContext';
 import AddEditModal from './AddEditModal';
 import NotificationBar from './generic/NotificationBar';
 

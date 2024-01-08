@@ -6,14 +6,18 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 
 function MyTableBody({ tablename }) {
-    const { brandColumns, StyledTableCell, StyledTableRow } = useContext(TableContext);
+    const { brandColumns, productColumns, StyledTableCell, StyledTableRow } = useContext(TableContext);
     const axiosPrivate = useAxiosPrivate();
-
+    
     let columns;
     let URL;
     switch (tablename.toLowerCase()) {
         case "brands":
             columns = brandColumns;
+            URL = '/brands'
+            break;
+        case "products":
+            columns = productColumns;
             URL = '/brands'
             break;
         default:

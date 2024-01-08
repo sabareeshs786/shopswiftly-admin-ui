@@ -40,6 +40,22 @@ export const TableContextProvider = ({children}) => {
             format: (value) => value.toLocaleString('en-US'),
         },
     ];
+    const productColumns = [
+        { id: 'sno', label: 'Sno', minWidth: 8 },
+        {id: 'name', label: 'Name', minWidth: 100},
+        { id: 'brand', label: 'Brand', minWidth: 50 },
+        {
+            id: "price",
+            label: "Price",
+            minWidth: 30
+        },
+        {
+            id: 'actions',
+            label: 'Actions',
+            minWidth: 100,
+            format: (value) => value.toLocaleString('en-US'),
+        },
+    ];
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [pageCount, setPageCount] = useState(1);
@@ -59,7 +75,7 @@ export const TableContextProvider = ({children}) => {
 
     return (
         <TableContext.Provider value={{
-            brandColumns, page, StyledTableCell, StyledTableRow, 
+            brandColumns, productColumns, page, StyledTableCell, StyledTableRow, 
             handlePageChange, pageSize, setPageSize, handlePageSizeChange,
             pageCount, setPageCount, update, setUpdate, delNotify, setDelNotify,
             noteType, setNoteType, message, setMessage

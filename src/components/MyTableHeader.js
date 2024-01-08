@@ -3,12 +3,15 @@ import React, { useContext } from 'react'
 import TableContext from '../context/TableContext';
 
 function MyTableHeader({tablename}) {
-    const { brandColumns, StyledTableCell } = useContext(TableContext);
+    const { brandColumns,productColumns, StyledTableCell } = useContext(TableContext);
     let columns;
     
     switch(tablename.toLowerCase()){
         case "brands": 
             columns = brandColumns;
+            break;
+        case "products":
+            columns = productColumns;
             break;
         default:
             columns = brandColumns;
