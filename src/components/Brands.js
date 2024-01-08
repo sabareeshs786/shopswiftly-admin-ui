@@ -5,7 +5,8 @@ import AddEditModal from './AddEditModal';
 import NotificationBar from './generic/NotificationBar';
 
 function Brands() {
-    const {delNotify} = useContext(TableContext);
+    const {delNotify, noteType, message} = useContext(TableContext);
+
     return (
         <div className='my-container'>
                 <h4 className='main-heading'>Brands</h4>
@@ -13,7 +14,7 @@ function Brands() {
                 <br />
                 <br />
                 <MyTable tablename={"brands"} colnum={4} />
-            {delNotify && <NotificationBar />}
+            {delNotify && <NotificationBar notify={delNotify} noteType={noteType} message={message}/>}
         </div>
     )
 }

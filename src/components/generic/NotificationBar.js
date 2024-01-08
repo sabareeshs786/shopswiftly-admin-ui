@@ -2,18 +2,22 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import TableContext from '../../context/TableContext';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function NotificationBar({notify, noteType, message }) {
+    const {setDelNotify} = React.useContext(TableContext);
     const [open, setOpen] = React.useState(notify);
+
     const handleNoteClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-        setOpen(false);
+        setOpen && setOpen(false);
+        setDelNotify && setDelNotify(false);
     };
 
     return (
