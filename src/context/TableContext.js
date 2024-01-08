@@ -44,7 +44,11 @@ export const TableContextProvider = ({children}) => {
     const [pageSize, setPageSize] = useState(10);
     const [pageCount, setPageCount] = useState(1);
     const [update, setUpdate] = useState(1);
-    const [open, setOpen] = useState(false);
+
+    const [noteType, setNoteType] = useState('');
+    const [message, setMessage] = useState('');
+    const [notify, setNotify] = useState(false);
+    const [delNotify, setDelNotify] = useState(false);
 
     const handlePageChange = (e, newPage) => {
         setPage(newPage);
@@ -58,7 +62,8 @@ export const TableContextProvider = ({children}) => {
         <TableContext.Provider value={{
             brandColumns, page, StyledTableCell, StyledTableRow, 
             handlePageChange, pageSize, setPageSize, handlePageSizeChange,
-            pageCount, setPageCount, update, setUpdate, open, setOpen
+            pageCount, setPageCount, update, setUpdate, delNotify, setDelNotify,
+            noteType, setNoteType, message, setMessage, notify, setNotify
         }}>
             {children}
         </TableContext.Provider>

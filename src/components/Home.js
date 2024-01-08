@@ -13,6 +13,7 @@ import Brands from './Brands';
 import Products from './Products';
 import Inventory from './Inventory';
 import '../css/tables.css';
+import { TableContextProvider } from '../context/TableContext';
 
 function Home() {
 
@@ -56,6 +57,7 @@ function Home() {
     })
 
     return (
+        <TableContextProvider>
             <MyBox sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={tabNumber}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -77,6 +79,7 @@ function Home() {
                     </MyTabPanel>
                 </TabContext>
             </MyBox>
+        </TableContextProvider>
     )
 }
 

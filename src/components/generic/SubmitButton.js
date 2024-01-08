@@ -1,8 +1,9 @@
-export default function SubmitButton({content, className = "btn btn-primary submitbutton"}){
+export default function SubmitButton({content, className = "btn btn-primary submitbutton", handleSubmit}){
     return (
         <button
-            type="submit"
+            type="button"
             className={className}
+            onClick={handleSubmit}
         >{content}</button>
     );
 }

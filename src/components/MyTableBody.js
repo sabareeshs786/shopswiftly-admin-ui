@@ -1,13 +1,13 @@
 import { TableBody } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import TableContext from '../context/TableContext';
-import useAuth from '../hooks/useAuth';
-import axios from 'axios';
 import getBrandRows from '../data/GetBrandData';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 
 function MyTableBody({ tablename }) {
     const { brandColumns, StyledTableCell, StyledTableRow } = useContext(TableContext);
+    const axiosPrivate = useAxiosPrivate();
 
     let columns;
     let URL;
@@ -23,19 +23,11 @@ function MyTableBody({ tablename }) {
 
     const [rows, setRows] = useState(null);
     const { page, pageSize, setPageCount, update } = useContext(TableContext);
-    const auth = useAuth();
-    const api = axios.create({
-        baseURL: 'http://localhost:3501',
-        headers: {
-            'Authorization': `Bearer ${auth.auth.accessToken}`,
-            'Content-Type': 'application/json',
-        },
-    });
 
     useEffect(() => {
         const getData = async () => {
             const queryParam = { page, pageSize };
-            const response = await api.get(URL, { params: queryParam });
+            const response = await axiosPrivate.get(URL, { params: queryParam });
             const rows = getBrandRows(response.data.brands, (page - 1) * pageSize);
             setRows(rows);
             setPageCount(Math.ceil(response.data.totalCount / pageSize));
@@ -48,11 +40,11 @@ function MyTableBody({ tablename }) {
             {rows && rows
                 .map((row, i) => {
                     return (
-                        <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                            {columns.map((column) => {
+                        <StyledTableRow hover role="checkbox" tabIndex={-1} key={i}>
+                            {columns.map((column, ind) => {
                                 const value = row[column.id];
                                 return (
-                                    <StyledTableCell key={i} align={column?.align || 'left'}>
+                                    <StyledTableCell key={ind} align={column?.align || 'left'}>
                                         {value}
                                     </StyledTableCell>
                                 );

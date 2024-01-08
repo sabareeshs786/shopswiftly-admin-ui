@@ -1,46 +1,43 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import SubmitButton from './generic/SubmitButton';
-import axios from '../api/axios';
-import useAuth from '../hooks/useAuth';
+import { axiosPrivate } from '../api/axios';
 import NotificationBar from './generic/NotificationBar';
 import { isvalidInputData } from '../utils/ValidateInput';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 
-function BrandFormContainer({isEdit, data}) {
+function BrandFormContainer({ isEdit, data }) {
+    const [noteType, setNoteType] = useState('');
+    const [message, setMessage] = useState('');
+    const [notify, setNotify] = useState(false);
     const brandRef = useRef();
     const [brand, setBrand] = useState((data && data.b) || '');
     const [category, setCategory] = useState((data && data.c) || '');
-    const [brandFocus, setBrandFocus] = useState(true);
-    const [categoryFocus, setCategoryFocus] = useState(false);
-    const [noteType, setNoteType] = useState('');
-    const [message, setMessage] = useState('');
-    const [notify, setNotify] = React.useState(false);
+    const [allCate, setAllCate] = useState(null);
     const BRAND_URL = '/brands';
     const bcCode = (data && data.bcCode) || '';
-    const auth = useAuth();
-    const api = axios.create({
-        baseURL: 'http://localhost:3501',
-        headers: {
-            'Authorization': `Bearer ${auth.auth.accessToken}`,
-            'Content-Type': 'application/json',
-        },
-    });
+
     useEffect(() => {
-        brandRef.current.focus();
+        const getCategories = async () => {
+            const response = await axiosPrivate.get('/categories');
+            const cateArrObj = response.data;
+            const cateArr = cateArrObj.map((cateObj) => cateObj.category)
+            setAllCate(cateArr);
+        }
+        getCategories();
+        brandRef.current?.focus();
     }, []);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
+        console.log(`isEdit = ${isEdit}`);
         try {
-            if((isEdit && !isvalidInputData({brand, category, bcCode})) || !isvalidInputData({brand, category})){
+            if ((isEdit && !isvalidInputData({ brand, category, bcCode })) || !isvalidInputData({ brand, category })) {
                 throw new Error("Invalid input data");
             }
-
-            const response = isEdit ? await api.put(BRAND_URL, { brand, category, bcCode}) : await api.post(BRAND_URL, {brand, category});
+            const response = isEdit ? await axiosPrivate.put(BRAND_URL, { brand, category, bcCode }) : await axiosPrivate.post(BRAND_URL, { brand, category });
             setNotify(true);
             setNoteType('success');
-            setMessage(response.data.message);
+            setMessage(response?.data?.message);
         } catch (err) {
             setNotify(true);
             setNoteType('error');
@@ -54,39 +51,40 @@ function BrandFormContainer({isEdit, data}) {
                 <div className="card custom-card">
                     <div className="card-body">
                         <h3>{isEdit ? "Edit" : "Add"} Brand</h3>
-                        <form onSubmit={handleSubmit}>
+                        <form>
                             <div className="mb-3">
-                                <label htmlFor="brand" className="form-label custom-label">Brand</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="brand"
-                                    ref={brandRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setBrand(e.target.value)}
-                                    value={brand}
-                                    aria-describedby="uidnote"
-                                    onFocus={() => setBrandFocus(true)}
-                                    onBlur={() => { setBrandFocus(false) }}
-                                    placeholder="Enter brand"
-                                />
-                                <label htmlFor="category" className="form-label custom-label">Category</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="category"
-                                    autoComplete="off"
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    value={category}
-                                    aria-describedby="uidnote"
-                                    onFocus={() => setCategoryFocus(true)}
-                                    onBlur={() => { setCategoryFocus(false) }}
-                                    placeholder="Enter category"
-                                />
+                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
+                                    <TextField
+                                        id="standard-basic"
+                                        label="Brand"
+                                        variant="standard"
+                                        value={brand}
+                                        onChange={(e) => setBrand(e.target.value)}
+                                        inputRef={brandRef}
+                                    />
+                                </FormControl>
+                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
+                                    <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-standard-label"
+                                        value={category}
+                                        onChange={(e) => setCategory(e.target.value)}
+                                        label="Category"
+                                    >
+                                        <MenuItem value="" key={-1}>
+                                            <em>None</em>
+                                        </MenuItem>
+                                        {
+                                            allCate && allCate.length > 0 &&
+                                            allCate.map((category, i) => <MenuItem key={i} value={category}>{category}</MenuItem>)
+                                        }
+                                        
+                                    </Select>
+                                </FormControl>
                             </div>
-                            <SubmitButton content={isEdit ? "Edit" : "Add"} />
+                            <SubmitButton content={isEdit ? "Edit" : "Add"} handleSubmit={handleSubmit}/>
                             <button
-                                type='reset'
+                                type='button'
                                 className="btn btn-secondary resetbutton"
                                 onClick={() => { setBrand(''); setCategory(''); brandRef.current.focus() }}
                             >Reset</button>
@@ -94,7 +92,7 @@ function BrandFormContainer({isEdit, data}) {
                     </div>
                 </div>
             </section>
-            {notify && <NotificationBar noteType={noteType} message={message} notify={notify} setNotify={setNotify} />}
+            {notify && <NotificationBar notify={notify} noteType={noteType} message={message}/>}
         </>
     )
 }

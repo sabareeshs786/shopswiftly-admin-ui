@@ -33,18 +33,17 @@ export default function AddEditModal({ tablename, isEdit, data }) {
         <React.Fragment>
             {
                 isEdit ?
-                    <IconButton aria-label="delete" color='success' onClick={handleClickOpen}>
+                    <IconButton aria-label="success" color='success' onClick={handleClickOpen}>
                         <EditIcon />
                     </IconButton>
                     :
                     <Button variant="contained" onClick={handleClickOpen}>
-                        <b>+ Add Brand</b>
+                        <b>+ Add {tablename}</b>
                     </Button>
             }
             <Dialog
                 fullScreen
                 open={open}
-                onClose={handleClose}
                 TransitionComponent={Transition}
             >
                 <AppBar sx={{ position: 'relative' }}>
