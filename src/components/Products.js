@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MyTable from './MyTable';
 import TableContext from '../context/TableContext';
-import AddEditModal from './AddEditModal';
 import NotificationBar from './generic/NotificationBar';
 import CollapsibleTable from './ProductsTable';
 import CategoryDropdown from './CategoryDropdown';
 import { axiosPrivate } from '../api/axios';
 import UploadForm from './UploadForm';
+import AddEditModalProduct from './AddEditModalProducts';
 
 function Products() {
     const [allCate, setAllCate] = useState(null);
@@ -31,7 +31,7 @@ function Products() {
     return (
         <div className='my-container'>
             <h4 className='main-heading'>Products</h4>
-            <AddEditModal tablename="products" isEdit={false} />
+            <AddEditModalProduct tablename="products" isEdit={false} />
             <br />
             <CategoryDropdown category={category} allCate={allCate} setCategory={setCategory} />
             <br />
@@ -39,7 +39,6 @@ function Products() {
             <MyTable tablename={"products"} colnum={4} />
             <CollapsibleTable />
             {delNotify && <NotificationBar notify={delNotify} noteType={noteType} message={message} />}
-            <UploadForm />
         </div>
     )
 }

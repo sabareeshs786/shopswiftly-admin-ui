@@ -5,6 +5,13 @@
     margin: 30px auto;
 }
 
+.field-container-product{
+    align-items: center;
+    justify-content: center;
+    width: 98%;
+    margin: 30px auto;
+}
+
 .custom-card{
     padding: 0rem;
 }
