@@ -6,6 +6,7 @@ import NotificationBar from './generic/NotificationBar';
 import CollapsibleTable from './ProductsTable';
 import CategoryDropdown from './CategoryDropdown';
 import { axiosPrivate } from '../api/axios';
+import UploadForm from './UploadForm';
 
 function Products() {
     const [allCate, setAllCate] = useState(null);
@@ -38,6 +39,7 @@ function Products() {
             <MyTable tablename={"products"} colnum={4} />
             <CollapsibleTable />
             {delNotify && <NotificationBar notify={delNotify} noteType={noteType} message={message} />}
+            <UploadForm />
         </div>
     )
 }

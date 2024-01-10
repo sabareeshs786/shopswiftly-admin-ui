@@ -78,11 +78,15 @@ function BrandFormContainer({ isEdit, data }) {
                                             allCate && allCate.length > 0 &&
                                             allCate.map((category, i) => <MenuItem key={i} value={category}>{category}</MenuItem>)
                                         }
-                                        
+
                                     </Select>
                                 </FormControl>
                             </div>
-                            <SubmitButton content={isEdit ? "Edit" : "Add"} handleSubmit={handleSubmit}/>
+                            <button
+                                type="button"
+                                className={"btn btn-primary submitbutton"}
+                                onClick={handleSubmit}
+                            >{isEdit ? "Edit" : "Add"}</button>
                             <button
                                 type='button'
                                 className="btn btn-secondary resetbutton"
@@ -92,7 +96,7 @@ function BrandFormContainer({ isEdit, data }) {
                     </div>
                 </div>
             </section>
-            {notify && <NotificationBar notify={notify} noteType={noteType} message={message}/>}
+            {notify && <NotificationBar notify={notify} noteType={noteType} message={message} />}
         </>
     )
 }

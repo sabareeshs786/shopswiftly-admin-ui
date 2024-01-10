@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 function CategoryDropdown({ category, allCate, setCategory }) {
@@ -25,4 +25,4 @@ function CategoryDropdown({ category, allCate, setCategory }) {
     )
 }
 
-export default CategoryDropdown
+export default CategoryDropdown;

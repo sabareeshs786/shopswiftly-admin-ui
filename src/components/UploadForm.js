@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import '../css/uploadform.css';
 import Notification from './Notification';
+import { axiosPrivate } from '../api/axios';
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 const UploadForm = () => {
     const [notification, setNotification] = useState(null);
@@ -12,7 +14,7 @@ const UploadForm = () => {
     const closeNotification = () => {
         setNotification(null);
     };
-
+    const {auth} = useAuth();
     const [file, setFile] = useState(null);
     const [name, setName] = useState('');
     const [brand, setBrand] = useState('');
@@ -33,9 +35,10 @@ const UploadForm = () => {
     });
 
     const handleUpload = async () => {
+        console.log(auth);
         try {
             const formData = new FormData();
-            formData.append('image', file);
+            formData.append('images', file);
             formData.append('name', name);
             formData.append('description', description);
             formData.append('price', price);
@@ -44,8 +47,12 @@ const UploadForm = () => {
             formData.append('storage', internalStorage);
             formData.append('batteryCapacity', batteryCapacity);
 
-            const response = await axios.post('http://localhost:3501/upload', formData);
-            showNotification('Image uploaded successfully!', 'success');
+            const response = await axios.post('http://localhost:3501/product/add-product/mobiles', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${auth.accessToken}`
+                },
+            });
         } catch (error) {
             showNotification('Error uploading image. Please try again.', 'error');
         }
