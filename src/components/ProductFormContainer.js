@@ -3,6 +3,7 @@ import { axiosPrivate } from '../api/axios';
 import NotificationBar from './generic/NotificationBar';
 import { isvalidInputData } from '../utils/ValidateInput';
 import { Checkbox, FormControl, FormControlLabel, Input, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import MobileSpecForm from './MobileSpecForm';
 
 
 function ProductFormContainer({ isEdit, data }) {
@@ -73,12 +74,12 @@ function ProductFormContainer({ isEdit, data }) {
         Object.keys(reqFields).map((key) => {
             const value = reqFields[key];
             console.log(key, reqFields[key]);
-            if (!value){
+            if (!value) {
                 noFields.push(key);
             }
         });
         setErrorFields(noFields);
-        
+
         try {
             if ((isEdit && !isvalidInputData({ pname, brand, category, currency, mp, sp, keywords })) || !isvalidInputData({ brand, category })) {
                 throw new Error("Invalid input data");
@@ -100,7 +101,6 @@ function ProductFormContainer({ isEdit, data }) {
                 <div className="card custom-card">
                     <div className="card-body">
                         <h6>Common fields</h6>
-                        <form>
                             <div class="row">
                                 <div className="col-md-3 mb-3">
                                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
@@ -112,7 +112,7 @@ function ProductFormContainer({ isEdit, data }) {
                                             rows={1}
                                             placeholder='Enter product name'
                                             value={pname}
-                                            onChange={(e) => {setPname(e.target.value); removeErrField('pname')}}
+                                            onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
                                             inputRef={pnameRef}
                                         />
                                         {errorFields && errorFields?.includes('pname') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
@@ -126,18 +126,18 @@ function ProductFormContainer({ isEdit, data }) {
                                             variant="standard"
                                             placeholder='Enter brand'
                                             value={brand}
-                                            onChange={(e) => {setBrand(e.target.value); removeErrField('brand')}}
+                                            onChange={(e) => { setBrand(e.target.value); removeErrField('brand') }}
                                         />
                                         {errorFields && errorFields?.includes('brand') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                                     </FormControl>
                                 </div>
                                 <div className="col-md-2 mb-3">
-                                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
+                                    <FormControl variant="standard" sx={{ m: 1, minWidth: 10, width: '100%' }}>
                                         <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-standard-label"
                                             value={category}
-                                            onChange={(e) => {setCategory(e.target.value); removeErrField('category')}}
+                                            onChange={(e) => { setCategory(e.target.value); removeErrField('category') }}
                                             label="Category"
                                         >
                                             <MenuItem value="" key={-1}>
@@ -153,12 +153,12 @@ function ProductFormContainer({ isEdit, data }) {
                                     </FormControl>
                                 </div>
                                 <div className="col-md-1 mb-3">
-                                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
+                                    <FormControl variant="standard" sx={{ m: 1, minWidth: 6, width: '100%' }}>
                                         <InputLabel id="demo-simple-select-standard-label">Currency</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-standard-label"
                                             value={currency}
-                                            onChange={(e) => {setCurrency(e.target.value); removeErrField('currency')}}
+                                            onChange={(e) => { setCurrency(e.target.value); removeErrField('currency') }}
                                             label=""
                                             placeholder='Enter currency'
                                         >
@@ -176,7 +176,7 @@ function ProductFormContainer({ isEdit, data }) {
                                             id="standard-adornment-amount"
                                             startAdornment={<InputAdornment position="start">{currencySymbolMap[currency]}</InputAdornment>}
                                             value={mp}
-                                            onChange={(e) => {handleInputChangeMp(e); removeErrField('mp')}}
+                                            onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
                                         />
                                         {errorFields && errorFields?.includes('mp') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                                     </FormControl>
@@ -188,7 +188,7 @@ function ProductFormContainer({ isEdit, data }) {
                                             id="standard-adornment-amount"
                                             startAdornment={<InputAdornment position="start">{currencySymbolMap[currency]}</InputAdornment>}
                                             value={sp}
-                                            onChange={(e) => {handleInputChangeSp(e); removeErrField('sp')}}
+                                            onChange={(e) => { handleInputChangeSp(e); removeErrField('sp') }}
                                         />
                                         {errorFields && errorFields?.includes('sp') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                                     </FormControl>
@@ -234,7 +234,7 @@ function ProductFormContainer({ isEdit, data }) {
                                             rows={1}
                                             placeholder='Enter keywords'
                                             value={keywords}
-                                            onChange={(e) => {setKeywords(e.target.value); removeErrField('keywords')}}
+                                            onChange={(e) => { setKeywords(e.target.value); removeErrField('keywords') }}
                                         />
                                         {errorFields && errorFields?.includes('keywords') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                                     </FormControl>
@@ -280,7 +280,16 @@ function ProductFormContainer({ isEdit, data }) {
                                 className="btn btn-secondary resetbutton"
                                 onClick={() => { setBrand(''); setCategory(''); pnameRef.current.focus() }}
                             >Reset</button>
-                        </form>
+                    </div>
+                </div>
+
+                <div className="card custom-card">
+                    <div className="card-body">
+                        <h6>Specifications</h6>
+                        <br/>
+                        {
+                            category && category === 'mobiles' && <MobileSpecForm />
+                        }
                     </div>
                 </div>
             </section>

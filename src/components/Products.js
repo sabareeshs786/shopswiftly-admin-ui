@@ -5,8 +5,8 @@ import NotificationBar from './generic/NotificationBar';
 import CollapsibleTable from './ProductsTable';
 import CategoryDropdown from './CategoryDropdown';
 import { axiosPrivate } from '../api/axios';
-import UploadForm from './UploadForm';
 import AddEditModalProduct from './AddEditModalProducts';
+import { ProductContextProvider } from '../context/ProductContext';
 
 function Products() {
     const [allCate, setAllCate] = useState(null);
@@ -29,17 +29,19 @@ function Products() {
     }, []);
 
     return (
-        <div className='my-container'>
-            <h4 className='main-heading'>Products</h4>
-            <AddEditModalProduct tablename="products" isEdit={false} />
-            <br />
-            <CategoryDropdown category={category} allCate={allCate} setCategory={setCategory} />
-            <br />
-            <br />
-            <MyTable tablename={"products"} colnum={4} />
-            <CollapsibleTable />
-            {delNotify && <NotificationBar notify={delNotify} noteType={noteType} message={message} />}
-        </div>
+        <ProductContextProvider>
+            <div className='my-container'>
+                <h4 className='main-heading'>Products</h4>
+                <AddEditModalProduct tablename="products" isEdit={false} />
+                <br />
+                <CategoryDropdown category={category} allCate={allCate} setCategory={setCategory} />
+                <br />
+                <br />
+                <MyTable tablename={"products"} colnum={4} />
+                <CollapsibleTable />
+                {delNotify && <NotificationBar notify={delNotify} noteType={noteType} message={message} />}
+            </div>
+        </ProductContextProvider>
     )
 }
 
