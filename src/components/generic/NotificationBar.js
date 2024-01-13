@@ -8,7 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function NotificationBar({notify, noteType, message }) {
+export default function NotificationBar({notify, setNotify, noteType, message }) {
     const {setDelNotify} = React.useContext(TableContext);
     const [open, setOpen] = React.useState(notify);
 
@@ -17,6 +17,7 @@ export default function NotificationBar({notify, noteType, message }) {
             return;
         }
         setOpen && setOpen(false);
+        setNotify(false);
         setDelNotify && setDelNotify(false);
     };
 

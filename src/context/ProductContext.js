@@ -3,6 +3,10 @@ import { createContext, useState } from "react";
 export const ProductContext = createContext({});
 
 export const ProductContextProvider = ({children}) => {
+    // General states
+    const [errorFields, setErrorFields] = useState([]);
+
+    // For mobiles
     const [modelNo, setModelNo] = useState('');
     const [modelName, setModelName] = useState('');
     const [color, setColor] = useState('');
@@ -30,14 +34,24 @@ export const ProductContextProvider = ({children}) => {
     const [browseType, setBrowseType] = useState('');
     const [manufacturerWarranty, setManufacturerWarranty] = useState('');
     const [inBoxWarrenty, setInBoxWarrenty] = useState('');
-
+    
     const getNumericVal = (e) => {
         const input = e.target.value;
         return input.replace(/[^0-9]/g, '');
     };
+    const addErrField = (newItem) => {
+        setErrorFields((prevItems) => [...prevItems, newItem]);
+    };
+
+    // Example function to remove an item from the array
+    const removeErrField = (itemToRemove) => {
+        setErrorFields((prevItems) => prevItems.filter((item) => itemToRemove !== item));
+    };
 
     return ( 
         <ProductContext.Provider value={{
+            errorFields, setErrorFields, addErrField, removeErrField,
+
             modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize, 
             screenSizeUnit, setScreenSizeUnit, resolution, setResolution, resolutionType, setResolutionType,
             os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,

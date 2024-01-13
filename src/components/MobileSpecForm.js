@@ -3,7 +3,8 @@ import React, { useContext } from 'react'
 import { ProductContext } from '../context/ProductContext'
 
 function MobileSpecForm() {
-    const { modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize,
+    const { errorFields, setErrorFields, addErrField, removeErrField,
+        modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize,
         screenSizeUnit, setScreenSizeUnit, resolution, setResolution, resolutionType, setResolutionType,
         os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
         ramSize, setRamSize, ramUnit, setRamUnit, storageSize, setStorageSize, storageUnit, setStorageUnit,
@@ -24,9 +25,8 @@ function MobileSpecForm() {
                             label="Model Number"
                             variant="standard"
                             placeholder='Enter model number'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                        value={modelNo}
+                        onChange={(e) => { setModelName(e.target.value); removeErrField('pname') }}
                         />
                     </FormControl>
                 </div>
@@ -39,7 +39,6 @@ function MobileSpecForm() {
                             placeholder='Enter model name'
                         // value={pname}
                         // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
                         />
                     </FormControl>
                 </div>
