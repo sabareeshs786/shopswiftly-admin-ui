@@ -24,7 +24,7 @@ function GenericForm({brand, setBrand, category, setCategory, allCate}) {
         <div className="card custom-card">
             <div className="card-body">
                 <h6>Common fields</h6>
-                <div class="row">
+                <div className="row">
                     <div className="col-md-3 mb-3">
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                             <TextField
@@ -85,7 +85,7 @@ function GenericForm({brand, setBrand, category, setCategory, allCate}) {
                                 placeholder='Enter currency'
                             >
                                 {
-                                    Object.keys(currencySymbolMap).map((curr, i) => <MenuItem value={curr}>{curr} {currencySymbolMap[curr]}</MenuItem>)
+                                    Object.keys(currencySymbolMap).map((curr, i) => <MenuItem key={i} value={curr}>{curr} {currencySymbolMap[curr]}</MenuItem>)
                                 }
                             </Select>
                             {errorFields && errorFields?.includes('currency') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
@@ -117,7 +117,7 @@ function GenericForm({brand, setBrand, category, setCategory, allCate}) {
                     </div>
                 </div>
 
-                <div class="row">
+                <div className="row">
                     <div className="col-md-3 mb-3">
                         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                             <TextField
@@ -177,7 +177,7 @@ function GenericForm({brand, setBrand, category, setCategory, allCate}) {
                     </div>
                 </div>
 
-                <div class="row">
+                <div className="row">
                     <div className="col-md-3 mb-2">
                         <FormControlLabel
                             control={<Checkbox checked={availability} onChange={(e) => setAvailability(e.target.checked)} />}

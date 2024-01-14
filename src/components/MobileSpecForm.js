@@ -62,20 +62,20 @@ function MobileSpecForm() {
                             value={modelNo}
                             onChange={(e) => { setModelNo(e.target.value); removeErrField('modelNo') }}
                         />
-                        {errorFields && errorFields?.includes('category') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
+                        {errorFields && errorFields?.includes('modelNo') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className="col-md-3 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
                             id={mNameId}
-                            label="Model Name"
+                            label="Model Name *"
                             variant="standard"
                             placeholder='Enter model name'
                             value={modelName}
-                            onChange={(e) => { setModelName(e.target.value); removeErrField('pname') }}
+                            onChange={(e) => { setModelName(e.target.value); removeErrField('modelName') }}
                         />
-                        {errorFields && errorFields?.includes('category') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
+                        {errorFields && errorFields?.includes('modelName') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className="col-md-3 mb-3">
@@ -111,22 +111,24 @@ function MobileSpecForm() {
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={sWId}>Screen width</InputLabel>
+                        <InputLabel htmlFor={sWId}>Screen width *</InputLabel>
                         <Input
                             id={sWId}
                             value={screenSizeWidth}
-                            onChange={(e) => { setScreenSizeWidth(getNumericVal(e)); }}
+                            onChange={(e) => { setScreenSizeWidth(getNumericVal(e)); removeErrField('screenSizeWidth') }}
                         />
+                        {errorFields && errorFields?.includes('screenSizeWidth') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={sHId}>Screen height</InputLabel>
+                        <InputLabel htmlFor={sHId}>Screen height *</InputLabel>
                         <Input
                             id={sHId}
                             value={screenSizeHeight}
-                            onChange={(e) => { setScreenSizeHeight(getNumericVal(e)); }}
+                            onChange={(e) => { setScreenSizeHeight(getNumericVal(e)); removeErrField('screenSizeHeight') }}
                         />
+                        {errorFields && errorFields?.includes('screenSizeHeight') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
@@ -234,13 +236,14 @@ function MobileSpecForm() {
                 <h6>Memory & Storage details</h6>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={ramSizeId}>RAM size</InputLabel>
+                        <InputLabel htmlFor={ramSizeId}>RAM size *</InputLabel>
                         <Input
                             id={ramSizeId}
                             endAdornment={<InputAdornment position="end"><b>{ramUnit}</b></InputAdornment>}
                             value={ramSize}
-                            onChange={(e) => { setRamSize(getNumericVal(e)); }}
+                            onChange={(e) => { setRamSize(getNumericVal(e)); removeErrField('ramSize') }}
                         />
+                        {errorFields && errorFields?.includes('ramSize') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className="col-md-2 mb-3">
@@ -259,13 +262,14 @@ function MobileSpecForm() {
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={storageSizeId}>Storage size</InputLabel>
+                        <InputLabel htmlFor={storageSizeId}>Storage size *</InputLabel>
                         <Input
                             id={storageSizeId}
                             endAdornment={<InputAdornment position="end"><b>{storageUnit}</b></InputAdornment>}
                             value={storageSize}
-                            onChange={(e) => { setStorageSize(getNumericVal(e)); }}
+                            onChange={(e) => { setStorageSize(getNumericVal(e)); removeErrField('storageSize') }}
                         />
+                        {errorFields && errorFields?.includes('storageSize') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className="col-md-2 mb-3">
