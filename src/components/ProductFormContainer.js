@@ -4,12 +4,18 @@ import NotificationBar from './generic/NotificationBar';
 import MobileSpecForm from './MobileSpecForm';
 import { GenericProductContext } from '../context/GenericProductContext';
 import GenericForm from './GenericForm';
+import { ProductContext } from '../context/ProductContext';
 
-function ProductFormContainer({ isEdit, data }) {
+function ProductFormContainer({ isEdit=false, data }) {
 
     const { pname, currency, sp, mp, desc, keywords, highlights,
         availability, sellers, bestSeller, pnameRef,
         setErrorFields, } = useContext(GenericProductContext);
+    const { modelNo, modelName, color, screenSizeWidth, screenSizeHeight,
+        screenSizeUnit, resolutionWidth, resolutionHeight, resolutionType,
+        os, pbrand, pmodel, pnoOfCores, pClockSpeed, ramSize, ramUnit, storageSize,
+        storageUnit, primaryCamera, secondaryCamera, batteryCapacity, networkType,
+        simType, speciality, features, manufacturerWarranty, inBoxWarrenty } = useContext(ProductContext);
 
     const [noteType, setNoteType] = useState('');
     const [message, setMessage] = useState('');
@@ -58,8 +64,15 @@ function ProductFormContainer({ isEdit, data }) {
                 "category": category, "currency": currency, "mp": mp, "sp": sp,
                 "keywords": keywords,
             };
+            let specFiels;
             setErrForEmptyReqFields(reqFields);
-
+            switch(category){
+                case "mobiles": 
+                    specFiels = {};
+                    break;
+                default:
+                    console.log('No such category');
+            }
             const response = isEdit ? await axiosPrivate.put(PRODUCT_URL, { brand, category, bcCode }) : await axiosPrivate.post(PRODUCT_URL, { brand, category });
             setNotify(true);
             setNoteType('success');

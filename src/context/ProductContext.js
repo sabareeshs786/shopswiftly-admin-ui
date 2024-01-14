@@ -8,9 +8,11 @@ export const ProductContextProvider = ({children}) => {
     const [modelNo, setModelNo] = useState('');
     const [modelName, setModelName] = useState('');
     const [color, setColor] = useState('');
-    const [screenSize, setScreenSize] = useState('');
+    const [screenSizeWidth, setScreenSizeWidth] = useState('');
+    const [screenSizeHeight, setScreenSizeHeight] = useState('');
     const [screenSizeUnit, setScreenSizeUnit] =  useState('inch');
-    const [resolution, setResolution] = useState('');
+    const [resolutionWidth, setResolutionWidth] = useState('');
+    const [resolutionHeight, setResolutionHeight] = useState('');
     const [resolutionType, setResolutionType] = useState('');
     const [os, setOs] = useState('');
     const [pbrand, setPbrand] = useState('');
@@ -35,9 +37,11 @@ export const ProductContextProvider = ({children}) => {
         setModelNo('');
         setModelName('');
         setColor('');
-        setScreenSize('');
+        setScreenSizeWidth('');
+        setScreenSizeHeight('')
         setScreenSizeUnit('inch');
-        setResolution('');
+        setResolutionWidth('');
+        setResolutionHeight('');
         setResolutionType('');
         setOs('');
         setPbrand('');
@@ -48,8 +52,8 @@ export const ProductContextProvider = ({children}) => {
         setRamUnit('GB');
         setStorageSize('');
         setStorageUnit('GB');
-        setPrimaryCamera('');
-        setSecondaryCamera('');
+        setPrimaryCamera(['', '','']);
+        setSecondaryCamera(['', '', '']);
         setBatteryCapacity('');
         setNetworkType('');
         setSimType('');
@@ -62,8 +66,8 @@ export const ProductContextProvider = ({children}) => {
 
     return ( 
         <ProductContext.Provider value={{
-            modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize, 
-            screenSizeUnit, setScreenSizeUnit, resolution, setResolution, resolutionType, setResolutionType,
+            modelNo, setModelNo, modelName, setModelName, color, setColor, screenSizeWidth, setScreenSizeWidth, screenSizeHeight, setScreenSizeHeight, 
+            screenSizeUnit, setScreenSizeUnit, resolutionWidth, setResolutionWidth, resolutionHeight, setResolutionHeight, resolutionType, setResolutionType,
             os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
             ramSize, setRamSize, ramUnit, setRamUnit, storageSize, setStorageSize, storageUnit, setStorageUnit,
             primaryCamera, setPrimaryCamera, secondaryCamera, setSecondaryCamera, batteryCapacity, setBatteryCapacity,

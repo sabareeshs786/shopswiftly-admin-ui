@@ -1,18 +1,50 @@
 import { FormControl, Input, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import React, { useContext } from 'react'
+import React, { useContext, useId } from 'react'
 import { ProductContext } from '../context/ProductContext'
 import { GenericProductContext } from '../context/GenericProductContext';
 
 function MobileSpecForm() {
+
+    const mNoId = useId();
+    const mNameId = useId();
+    const colorId = useId();
+    const sSizeUnitId = useId();
+    const sWId = useId();
+    const sHId = useId();
+    const rWId = useId();
+    const rHId = useId();
+    const rType = useId();
+    const osNameId = useId();
+    const pbrandId = useId();
+    const pmodelId = useId();
+    const pnoOfCoresId = useId();
+    const pClockSpeedId = useId();
+    const ramSizeId = useId();
+    const ramUnitId = useId();
+    const storageSizeId = useId();
+    const storageUnitId = useId();
+    const primaryCamera1Id = useId();
+    const primaryCamera2Id = useId();
+    const primaryCamera3Id = useId();
+    const secondaryCamera1Id = useId();
+    const secondaryCamera2Id = useId();
+    const secondaryCamera3Id = useId();
+    const batteryCapacityId = useId();
+    const networkTypeId = useId();
+    const simTypeId = useId();
+    const specialityId = useId();
+    const featuresId = useId();
+    const manufacturerWarrantyId = useId();
+    const inBoxWarrentyId = useId();
+
     const { getNumericVal, errorFields, removeErrField } = useContext(GenericProductContext);
     const {
-        modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize,
-        screenSizeUnit, setScreenSizeUnit, resolution, setResolution, resolutionType, setResolutionType,
+        modelNo, setModelNo, modelName, setModelName, color, setColor, screenSizeWidth, setScreenSizeWidth, screenSizeHeight, setScreenSizeHeight,
+        screenSizeUnit, setScreenSizeUnit, resolutionWidth, setResolutionWidth, resolutionHeight, setResolutionHeight, resolutionType, setResolutionType,
         os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
         ramSize, setRamSize, ramUnit, setRamUnit, storageSize, setStorageSize, storageUnit, setStorageUnit,
         primaryCamera, setPrimaryCamera, secondaryCamera, setSecondaryCamera, batteryCapacity, setBatteryCapacity,
-        batteryCapacityUnit, setBatteryCapacityUnit, networkType, setNetworkType, simType, setSimType,
-        speciality, setSpeciality, features, setFeatures, browseType, setBrowseType, manufacturerWarranty,
+        networkType, setNetworkType, simType, setSimType, speciality, setSpeciality, features, setFeatures, manufacturerWarranty,
         setManufacturerWarranty, inBoxWarrenty, setInBoxWarrenty,
     } = useContext(ProductContext);
 
@@ -23,7 +55,7 @@ function MobileSpecForm() {
                 <div className="col-md-3 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={mNoId}
                             label="Model Number *"
                             variant="standard"
                             placeholder='Enter model number'
@@ -36,7 +68,7 @@ function MobileSpecForm() {
                 <div className="col-md-3 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={mNameId}
                             label="Model Name"
                             variant="standard"
                             placeholder='Enter model name'
@@ -49,12 +81,12 @@ function MobileSpecForm() {
                 <div className="col-md-3 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={colorId}
                             label="Color"
                             variant="standard"
                             placeholder='Enter color'
-                        value={color}
-                        onChange={setColor}
+                            value={color}
+                            onChange={(e) => setColor(e.target.value)}
                         />
                     </FormControl>
                 </div>
@@ -64,11 +96,11 @@ function MobileSpecForm() {
                 <h6>Display details</h6>
                 <div className="col-md-2 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                        <InputLabel id="demo-simple-select-standard-label">Screen size unit</InputLabel>
+                        <InputLabel id={sSizeUnitId}>Screen size unit</InputLabel>
                         <Select
-                            labelId="demo-simple-select-standard-label"
+                            labelId={sSizeUnitId}
                             value={screenSizeUnit}
-                            onChange={setScreenSizeUnit}
+                            onChange={(e) => setScreenSizeUnit(e.target.value)}
                             label="Screensize unit"
                         >
                             <MenuItem value={'inch'}>inch</MenuItem>
@@ -79,54 +111,53 @@ function MobileSpecForm() {
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Screen width</InputLabel>
+                        <InputLabel htmlFor={sWId}>Screen width</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            id={sWId}
+                            value={screenSizeWidth}
+                            onChange={(e) => { setScreenSizeWidth(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Screen height</InputLabel>
+                        <InputLabel htmlFor={sHId}>Screen height</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            id={sHId}
+                            value={screenSizeHeight}
+                            onChange={(e) => { setScreenSizeHeight(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Resolution width</InputLabel>
+                        <InputLabel htmlFor={rWId}>Resolution width</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            id={rWId}
+                            value={resolutionWidth}
+                            onChange={(e) => setResolutionWidth(getNumericVal(e))}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Resolution height</InputLabel>
+                        <InputLabel htmlFor={rHId}>Resolution height</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            id={rHId}
+                            value={resolutionHeight}
+                            onChange={(e) => setResolutionHeight(getNumericVal(e))}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={rType}
                             label="Resolution Type"
                             variant="standard"
                             placeholder='Enter resolution type'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={resolutionType}
+                            onChange={(e) => setResolutionType(e.target.value)}
                         />
                     </FormControl>
                 </div>
@@ -137,13 +168,12 @@ function MobileSpecForm() {
                 <div className='col-md-2 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={osNameId}
                             label="OS Name"
                             variant="standard"
                             placeholder='Enter OS name'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={os}
+                            onChange={(e) => { setOs(e.target.value) }}
                         />
                     </FormControl>
                 </div>
@@ -153,52 +183,48 @@ function MobileSpecForm() {
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={pbrandId}
                             label="Processor brand"
                             variant="standard"
                             placeholder='Enter processor brand'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={pbrand}
+                            onChange={(e) => { setPbrand(e.target.value) }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={pmodelId}
                             label="Processor model"
                             variant="standard"
                             placeholder='Enter processor model'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={pmodel}
+                            onChange={(e) => { setPmodel(e.target.value); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={pnoOfCoresId}
                             label="Number of cores"
                             variant="standard"
                             placeholder='Enter no of cores'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={pnoOfCores}
+                            onChange={(e) => { setPnoOfCores(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={pClockSpeedId}
                             label="Clock speed"
                             variant="standard"
                             placeholder='Enter clock speed'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={pClockSpeed}
+                            onChange={(e) => { setPClockSpeed(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
@@ -208,22 +234,22 @@ function MobileSpecForm() {
                 <h6>Memory & Storage details</h6>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">RAM size</InputLabel>
+                        <InputLabel htmlFor={ramSizeId}>RAM size</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
-                            endAdornment={<InputAdornment position="end"><b>GB</b></InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            id={ramSizeId}
+                            endAdornment={<InputAdornment position="end"><b>{ramUnit}</b></InputAdornment>}
+                            value={ramSize}
+                            onChange={(e) => { setRamSize(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
                 <div className="col-md-2 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                        <InputLabel id="demo-simple-select-standard-label">RAM size unit</InputLabel>
+                        <InputLabel id={ramUnitId}>RAM size unit</InputLabel>
                         <Select
-                            labelId="demo-simple-select-standard-label"
-                            // value={category}
-                            // onChange={(e) => { setCategory(e.target.value); removeErrField('category') }}
+                            labelId={ramUnitId}
+                            value={ramUnit}
+                            onChange={(e) => { setRamUnit(e.target.value); }}
                             label="Screensize unit"
                         >
                             <MenuItem value={'GB'}>GB</MenuItem>
@@ -233,22 +259,22 @@ function MobileSpecForm() {
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Storage size</InputLabel>
+                        <InputLabel htmlFor={storageSizeId}>Storage size</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
-                            endAdornment={<InputAdornment position="end"><b>GB</b></InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            id={storageSizeId}
+                            endAdornment={<InputAdornment position="end"><b>{storageUnit}</b></InputAdornment>}
+                            value={storageSize}
+                            onChange={(e) => { setStorageSize(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
                 <div className="col-md-2 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                        <InputLabel id="demo-simple-select-standard-label">Storage size unit</InputLabel>
+                        <InputLabel id={storageUnitId}>Storage size unit</InputLabel>
                         <Select
-                            labelId="demo-simple-select-standard-label"
-                            // value={category}
-                            // onChange={(e) => { setCategory(e.target.value); removeErrField('category') }}
+                            labelId={storageUnitId}
+                            value={storageUnit}
+                            onChange={(e) => { setStorageUnit(e.target.value); }}
                             label="Screensize unit"
                         >
                             <MenuItem value={'GB'}>GB</MenuItem>
@@ -262,67 +288,67 @@ function MobileSpecForm() {
                 <h6>Camera details</h6>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Primary camera 1</InputLabel>
+                        <InputLabel htmlFor={primaryCamera1Id}>Primary camera 1</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={primaryCamera1Id}
                             endAdornment={<InputAdornment position="end"><b>MP</b></InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={primaryCamera[0]}
+                            onChange={(e) => { setPrimaryCamera([getNumericVal(e), primaryCamera[1], primaryCamera[2]]); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Primary camera 2</InputLabel>
+                        <InputLabel htmlFor={primaryCamera2Id}>Primary camera 2</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={primaryCamera2Id}
                             endAdornment={<InputAdornment position="end"><b></b>MP</InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={primaryCamera[1]}
+                            onChange={(e) => { setPrimaryCamera([primaryCamera[0], getNumericVal(e), primaryCamera[2]]); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Primary camera 3</InputLabel>
+                        <InputLabel htmlFor={primaryCamera3Id}>Primary camera 3</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={primaryCamera3Id}
                             endAdornment={<InputAdornment position="end">MP</InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={primaryCamera[2]}
+                            onChange={(e) => { setPrimaryCamera([primaryCamera[0], primaryCamera[1], getNumericVal(e)]); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Secondary camera 1</InputLabel>
+                        <InputLabel htmlFor={secondaryCamera1Id}>Secondary camera 1</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={secondaryCamera1Id}
                             endAdornment={<InputAdornment position="end">MP</InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={secondaryCamera[0]}
+                            onChange={(e) => { setSecondaryCamera([getNumericVal(e), secondaryCamera[1], secondaryCamera[2]]); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Secondary camera 2</InputLabel>
+                        <InputLabel htmlFor={secondaryCamera2Id}>Secondary camera 2</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={secondaryCamera2Id}
                             endAdornment={<InputAdornment position="end">MP</InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={secondaryCamera[1]}
+                            onChange={(e) => { setSecondaryCamera([secondaryCamera[0], getNumericVal(e), secondaryCamera[2]]); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Secondary camera 3</InputLabel>
+                        <InputLabel htmlFor={secondaryCamera3Id}>Secondary camera 3</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={secondaryCamera3Id}
                             endAdornment={<InputAdornment position="end">MP</InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={secondaryCamera[2]}
+                            onChange={(e) => { setSecondaryCamera([secondaryCamera[0], secondaryCamera[1], getNumericVal(e)]); }}
                         />
                     </FormControl>
                 </div>
@@ -332,12 +358,12 @@ function MobileSpecForm() {
                 <h6>Battery details</h6>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor="standard-adornment-amount">Battery Capacity</InputLabel>
+                        <InputLabel htmlFor={batteryCapacityId}>Battery Capacity</InputLabel>
                         <Input
-                            id="standard-adornment-amount"
+                            id={batteryCapacityId}
                             endAdornment={<InputAdornment position="end">mAh</InputAdornment>}
-                        // value={mp}
-                        // onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
+                            value={batteryCapacity}
+                            onChange={(e) => { setBatteryCapacity(getNumericVal(e)); }}
                         />
                     </FormControl>
                 </div>
@@ -348,13 +374,12 @@ function MobileSpecForm() {
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={networkTypeId}
                             label="Network Type"
                             variant="standard"
                             placeholder='Enter network type'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={networkType}
+                            onChange={(e) => { setNetworkType(e.target.value); }}
                         />
                     </FormControl>
                 </div>
@@ -365,13 +390,12 @@ function MobileSpecForm() {
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={simTypeId}
                             label="SIM Type"
                             variant="standard"
                             placeholder='Enter sim type'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={simType}
+                            onChange={(e) => { setSimType(e.target.value); }}
                         />
                     </FormControl>
                 </div>
@@ -382,56 +406,52 @@ function MobileSpecForm() {
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={specialityId}
                             label="Speciality"
                             variant="standard"
                             placeholder='Enter speciality'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={speciality}
+                            onChange={(e) => { setSpeciality(e.target.value); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={featuresId}
                             label="Features"
                             variant="standard"
                             placeholder='Enter features'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={features}
+                            onChange={(e) => { setFeatures(e.target.value); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={manufacturerWarrantyId}
                             label="Manufacturer warranty"
                             variant="standard"
                             multiline
                             rows={1}
                             placeholder='Enter manufacturer warranty'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={manufacturerWarranty}
+                            onChange={(e) => { setManufacturerWarranty(e.target.value); }}
                         />
                     </FormControl>
                 </div>
                 <div className='col-md-3 mb-3'>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
-                            id="standard-basic"
+                            id={inBoxWarrentyId}
                             label="Inbox warranty"
                             variant="standard"
                             multiline
                             rows={1}
                             placeholder='Enter inbox warranty'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                            value={inBoxWarrenty}
+                            onChange={(e) => { setInBoxWarrenty(e.target.value); }}
                         />
                     </FormControl>
                 </div>
@@ -440,4 +460,4 @@ function MobileSpecForm() {
     )
 }
 
-export default MobileSpecForm
+export default MobileSpecForm;
