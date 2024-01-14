@@ -1,9 +1,11 @@
 import { FormControl, Input, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import React, { useContext } from 'react'
 import { ProductContext } from '../context/ProductContext'
+import { GenericProductContext } from '../context/GenericProductContext';
 
 function MobileSpecForm() {
-    const { errorFields, setErrorFields, addErrField, removeErrField,
+    const { getNumericVal, errorFields, removeErrField } = useContext(GenericProductContext);
+    const {
         modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize,
         screenSizeUnit, setScreenSizeUnit, resolution, setResolution, resolutionType, setResolutionType,
         os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
@@ -12,7 +14,7 @@ function MobileSpecForm() {
         batteryCapacityUnit, setBatteryCapacityUnit, networkType, setNetworkType, simType, setSimType,
         speciality, setSpeciality, features, setFeatures, browseType, setBrowseType, manufacturerWarranty,
         setManufacturerWarranty, inBoxWarrenty, setInBoxWarrenty,
-        getNumericVal } = useContext(ProductContext);
+    } = useContext(ProductContext);
 
     return (
         <>
@@ -22,12 +24,13 @@ function MobileSpecForm() {
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
                         <TextField
                             id="standard-basic"
-                            label="Model Number"
+                            label="Model Number *"
                             variant="standard"
                             placeholder='Enter model number'
-                        value={modelNo}
-                        onChange={(e) => { setModelName(e.target.value); removeErrField('pname') }}
+                            value={modelNo}
+                            onChange={(e) => { setModelNo(e.target.value); removeErrField('modelNo') }}
                         />
+                        {errorFields && errorFields?.includes('category') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className="col-md-3 mb-3">
@@ -37,9 +40,10 @@ function MobileSpecForm() {
                             label="Model Name"
                             variant="standard"
                             placeholder='Enter model name'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
+                            value={modelName}
+                            onChange={(e) => { setModelName(e.target.value); removeErrField('pname') }}
                         />
+                        {errorFields && errorFields?.includes('category') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className="col-md-3 mb-3">
@@ -49,9 +53,8 @@ function MobileSpecForm() {
                             label="Color"
                             variant="standard"
                             placeholder='Enter color'
-                        // value={pname}
-                        // onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                        // inputRef={pnameRef}
+                        value={color}
+                        onChange={setColor}
                         />
                     </FormControl>
                 </div>
@@ -64,8 +67,8 @@ function MobileSpecForm() {
                         <InputLabel id="demo-simple-select-standard-label">Screen size unit</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
-                            // value={category}
-                            // onChange={(e) => { setCategory(e.target.value); removeErrField('category') }}
+                            value={screenSizeUnit}
+                            onChange={setScreenSizeUnit}
                             label="Screensize unit"
                         >
                             <MenuItem value={'inch'}>inch</MenuItem>

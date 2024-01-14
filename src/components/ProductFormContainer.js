@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { axiosPrivate } from '../api/axios';
 import NotificationBar from './generic/NotificationBar';
-import { isvalidInputData } from '../utils/ValidateInput';
-import { Checkbox, FormControl, FormControlLabel, Input, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import MobileSpecForm from './MobileSpecForm';
-import { ProductContext } from '../context/ProductContext';
 import { GenericProductContext } from '../context/GenericProductContext';
-
+import GenericForm from './GenericForm';
 
 function ProductFormContainer({ isEdit, data }) {
-    const { pname, setPname, currency, setCurrency, sp, setSp, mp, setMp,
-        desc, setDesc, keywords, setKeywords, highlights, setHighlights,
-        availability, setAvailability, sellers, setSellers, bestSeller,
-        setBestseller } = useContext(GenericProductContext);
-    const { errorFields, setErrorFields, addErrField, removeErrField } = useContext(ProductContext);
+
+    const { pname, currency, sp, mp, desc, keywords, highlights,
+        availability, sellers, bestSeller, pnameRef,
+        setErrorFields, } = useContext(GenericProductContext);
 
     const [noteType, setNoteType] = useState('');
     const [message, setMessage] = useState('');
@@ -21,11 +17,8 @@ function ProductFormContainer({ isEdit, data }) {
     const [brand, setBrand] = useState((data && data.b) || '');
     const [category, setCategory] = useState((data && data.c) || '');
     const [allCate, setAllCate] = useState(null);
-    const pnameRef = useRef();
     const PRODUCT_URL = '/products';
     const bcCode = (data && data.bcCode) || '';
-
-    const currencySymbolMap = { 'INR': '₹', 'USD': '$', 'EURO': '€' }
 
     useEffect(() => {
         const getCategories = async () => {
@@ -37,21 +30,7 @@ function ProductFormContainer({ isEdit, data }) {
         getCategories();
         pnameRef.current?.focus();
     }, []);
-    const handleInputChangeMp = (e) => {
-        // Allow only numeric values
-        const input = e.target.value;
-        const numericInput = input.replace(/[^0-9]/g, '');
 
-        setMp(numericInput);
-    };
-
-    const handleInputChangeSp = (e) => {
-        // Allow only numeric values
-        const input = e.target.value;
-        const numericInput = input.replace(/[^0-9]/g, '');
-
-        setSp(numericInput);
-    };
     const setErrForEmptyReqFields = (reqFields) => {
         const emptyReqFields = [];
         Object.keys(reqFields).map((key) => {
@@ -60,14 +39,15 @@ function ProductFormContainer({ isEdit, data }) {
                 emptyReqFields.push(key);
             }
         });
-        if(emptyReqFields.length !== 0){
+        if (emptyReqFields.length !== 0) {
             setErrorFields(emptyReqFields);
             throw new Error("Invalid input data");
         }
     }
+
     const handleSubmit = async (e) => {
         try {
-            let genericfields = {
+            const genericfields = {
                 "pname": pname, "brand": brand,
                 "category": category, "currency": currency, "mp": mp, "sp": sp,
                 "highlights": highlights, "desc": desc, "keywords": keywords, "sellers": sellers,
@@ -92,187 +72,17 @@ function ProductFormContainer({ isEdit, data }) {
         }
     };
 
-    const reset = () => {
+    const handleReset = () => {
 
     }
 
     return (
         <>
             <section className='field-container-product'>
-                <div className="card custom-card">
-                    <div className="card-body">
-                        <h6>Common fields</h6>
-                        <div class="row">
-                            <div className="col-md-3 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Product name"
-                                        variant="standard"
-                                        multiline
-                                        rows={1}
-                                        placeholder='Enter product name'
-                                        value={pname}
-                                        onChange={(e) => { setPname(e.target.value); removeErrField('pname') }}
-                                        inputRef={pnameRef}
-                                    />
-                                    {errorFields && errorFields?.includes('pname') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                            <div className="col-md-2 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Brand"
-                                        variant="standard"
-                                        placeholder='Enter brand'
-                                        value={brand}
-                                        onChange={(e) => { setBrand(e.target.value); removeErrField('brand') }}
-                                    />
-                                    {errorFields && errorFields?.includes('brand') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                            <div className="col-md-2 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 10, width: '100%' }}>
-                                    <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        value={category}
-                                        onChange={(e) => { setCategory(e.target.value); removeErrField('category') }}
-                                        label="Category"
-                                    >
-                                        <MenuItem value="" key={-1}>
-                                            <em>--Select--</em>
-                                        </MenuItem>
-                                        {
-                                            allCate && allCate.length > 0 &&
-                                            allCate.map((category, i) => <MenuItem key={i} value={category}>{category}</MenuItem>)
-                                        }
-
-                                    </Select>
-                                    {errorFields && errorFields?.includes('category') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                            <div className="col-md-1 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 6, width: '100%' }}>
-                                    <InputLabel id="demo-simple-select-standard-label">Currency</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        value={currency}
-                                        onChange={(e) => { setCurrency(e.target.value); removeErrField('currency') }}
-                                        label=""
-                                        placeholder='Enter currency'
-                                    >
-                                        {
-                                            Object.keys(currencySymbolMap).map((curr, i) => <MenuItem value={curr}>{curr} {currencySymbolMap[curr]}</MenuItem>)
-                                        }
-                                    </Select>
-                                    {errorFields && errorFields?.includes('currency') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                            <div className='col-md-2 mb-3'>
-                                <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                                    <InputLabel htmlFor="standard-adornment-amount">Marked Price</InputLabel>
-                                    <Input
-                                        id="standard-adornment-amount"
-                                        startAdornment={<InputAdornment position="start">{currencySymbolMap[currency]}</InputAdornment>}
-                                        value={mp}
-                                        onChange={(e) => { handleInputChangeMp(e); removeErrField('mp') }}
-                                    />
-                                    {errorFields && errorFields?.includes('mp') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                            <div className='col-md-2 mb-3'>
-                                <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                                    <InputLabel htmlFor="standard-adornment-amount">Selling Price</InputLabel>
-                                    <Input
-                                        id="standard-adornment-amount"
-                                        startAdornment={<InputAdornment position="start">{currencySymbolMap[currency]}</InputAdornment>}
-                                        value={sp}
-                                        onChange={(e) => { handleInputChangeSp(e); removeErrField('sp') }}
-                                    />
-                                    {errorFields && errorFields?.includes('sp') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div className="col-md-3 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Highlights"
-                                        variant="standard"
-                                        multiline
-                                        rows={1}
-                                        placeholder='Enter highlights'
-                                        value={highlights}
-                                        onChange={(e) => setHighlights(e.target.value)}
-                                    />
-                                </FormControl>
-                            </div>
-                            <div className="col-md-3 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Description"
-                                        variant="standard"
-                                        multiline
-                                        rows={1}
-                                        placeholder='Enter description'
-                                        value={desc}
-                                        onChange={(e) => setDesc(e.target.value)}
-                                    />
-                                </FormControl>
-                            </div>
-                            <div className="col-md-3 mb-3">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Keywords"
-                                        variant="standard"
-                                        multiline
-                                        rows={1}
-                                        placeholder='Enter keywords'
-                                        value={keywords}
-                                        onChange={(e) => { setKeywords(e.target.value); removeErrField('keywords') }}
-                                    />
-                                    {errorFields && errorFields?.includes('keywords') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                                </FormControl>
-                            </div>
-                            <div className="col-md-3 mb-2">
-                                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Sellers"
-                                        variant="standard"
-                                        multiline
-                                        rows={1}
-                                        placeholder='Enter sellers'
-                                        value={sellers}
-                                        onChange={(e) => setSellers(e.target.value)}
-                                    />
-                                </FormControl>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div className="col-md-3 mb-2">
-                                <FormControlLabel
-                                    control={<Checkbox checked={availability} onChange={(e) => setAvailability(e.target.checked)} />}
-                                    label="Availability"
-                                />
-                            </div>
-                            <div className="col-md-3 mb-2">
-                                <FormControlLabel
-                                    control={<Checkbox checked={bestSeller} onChange={(e) => setBestseller(e.target.checked)} />}
-                                    label="Bestseller"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <GenericForm brand={brand} setBrand={setBrand}
+                    category={category} setCategory={setCategory}
+                    allCate={allCate}
+                />
                 <div className="card custom-card">
                     <div className="card-body">
                         <h6>Specifications</h6>
@@ -291,7 +101,7 @@ function ProductFormContainer({ isEdit, data }) {
                 <button
                     type='button'
                     className="btn btn-secondary resetbutton"
-                    onClick={reset}
+                    onClick={handleReset}
                 >Reset</button>
             </section>
             {notify && <NotificationBar notify={notify} setNotify={setNotify} noteType={noteType} message={message} />}

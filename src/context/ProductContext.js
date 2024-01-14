@@ -3,15 +3,13 @@ import { createContext, useState } from "react";
 export const ProductContext = createContext({});
 
 export const ProductContextProvider = ({children}) => {
-    // General states
-    const [errorFields, setErrorFields] = useState([]);
 
     // For mobiles
     const [modelNo, setModelNo] = useState('');
     const [modelName, setModelName] = useState('');
     const [color, setColor] = useState('');
     const [screenSize, setScreenSize] = useState('');
-    const [screenSizeUnit, setScreenSizeUnit] =  useState('');
+    const [screenSizeUnit, setScreenSizeUnit] =  useState('inch');
     const [resolution, setResolution] = useState('');
     const [resolutionType, setResolutionType] = useState('');
     const [os, setOs] = useState('');
@@ -20,48 +18,57 @@ export const ProductContextProvider = ({children}) => {
     const [pnoOfCores, setPnoOfCores] = useState('');
     const [pClockSpeed, setPClockSpeed] = useState('');
     const [ramSize, setRamSize] = useState('');
-    const [ramUnit, setRamUnit] = useState('');
+    const [ramUnit, setRamUnit] = useState('GB');
     const [storageSize, setStorageSize] = useState('');
-    const [storageUnit, setStorageUnit] = useState('');
+    const [storageUnit, setStorageUnit] = useState('GB');
     const [primaryCamera, setPrimaryCamera] = useState('');
     const [secondaryCamera, setSecondaryCamera] = useState('');
     const [batteryCapacity, setBatteryCapacity] = useState('');
-    const [batteryCapacityUnit, setBatteryCapacityUnit] = useState('');
     const [networkType, setNetworkType] = useState('');
     const [simType, setSimType] = useState('');
     const [speciality, setSpeciality] = useState('');
     const [features, setFeatures] = useState('');
-    const [browseType, setBrowseType] = useState('');
     const [manufacturerWarranty, setManufacturerWarranty] = useState('');
     const [inBoxWarrenty, setInBoxWarrenty] = useState('');
-    
-    const getNumericVal = (e) => {
-        const input = e.target.value;
-        return input.replace(/[^0-9]/g, '');
-    };
-    const addErrField = (newItem) => {
-        setErrorFields((prevItems) => [...prevItems, newItem]);
-    };
 
-    // Example function to remove an item from the array
-    const removeErrField = (itemToRemove) => {
-        setErrorFields((prevItems) => prevItems.filter((item) => itemToRemove !== item));
-    };
+    const resetProductFields = () => {
+        setModelNo('');
+        setModelName('');
+        setColor('');
+        setScreenSize('');
+        setScreenSizeUnit('inch');
+        setResolution('');
+        setResolutionType('');
+        setOs('');
+        setPbrand('');
+        setPmodel('');
+        setPnoOfCores('');
+        setPClockSpeed('');
+        setRamSize('');
+        setRamUnit('GB');
+        setStorageSize('');
+        setStorageUnit('GB');
+        setPrimaryCamera('');
+        setSecondaryCamera('');
+        setBatteryCapacity('');
+        setNetworkType('');
+        setSimType('');
+        setSpeciality('');
+        setFeatures('');
+        setManufacturerWarranty('');
+        setInBoxWarrenty('');
+    }
+    
 
     return ( 
         <ProductContext.Provider value={{
-            errorFields, setErrorFields, addErrField, removeErrField,
-
             modelNo, setModelNo, modelName, setModelName, color, setColor, screenSize, setScreenSize, 
             screenSizeUnit, setScreenSizeUnit, resolution, setResolution, resolutionType, setResolutionType,
             os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
             ramSize, setRamSize, ramUnit, setRamUnit, storageSize, setStorageSize, storageUnit, setStorageUnit,
             primaryCamera, setPrimaryCamera, secondaryCamera, setSecondaryCamera, batteryCapacity, setBatteryCapacity,
-            batteryCapacityUnit, setBatteryCapacityUnit, networkType, setNetworkType, simType, setSimType,
-            speciality, setSpeciality, features, setFeatures, browseType, setBrowseType, manufacturerWarranty,
-            setManufacturerWarranty, inBoxWarrenty, setInBoxWarrenty,
-
-            getNumericVal
+            networkType, setNetworkType, simType, setSimType,speciality, setSpeciality, features, setFeatures, 
+            manufacturerWarranty, setManufacturerWarranty, inBoxWarrenty, setInBoxWarrenty, resetProductFields
         }} >
             {children}
         </ProductContext.Provider> 
