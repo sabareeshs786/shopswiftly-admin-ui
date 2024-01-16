@@ -32,7 +32,7 @@ export const GenericProductContextProvider = ({children}) => {
 
     const getNumericVal = (e) => {
         const input = e.target.value;
-        return input.replace(/[^0-9]/g, '');
+        return input.replace(/[^0-9.]/g, '');
     };
 
     const addErrField = (newItem) => {

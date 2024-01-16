@@ -16,8 +16,8 @@ function ProductFormContainer({ isEdit = false, data }) {
     const { pname, currency, sp, mp, desc, keywords, highlights,
         availability, sellers, bestSeller, pnameRef,
         setErrorFields, } = useContext(GenericProductContext);
-    const { modelNo, modelName, color, screenSizeWidth, screenSizeHeight,
-        screenSizeUnit, resolutionWidth, resolutionHeight, resolutionType,
+    const { modelNo, modelName, color, displaySize,
+        displaySizeUnit, resolutionWidth, resolutionHeight, resolutionType,
         os, pbrand, pmodel, pnoOfCores, pClockSpeed, ramSize, ramUnit, storageSize,
         storageUnit, primaryCamera, secondaryCamera, batteryCapacity, networkType,
         simType, speciality, features, manufacturerWarranty, inBoxWarrenty } = useContext(ProductContext);
@@ -28,6 +28,7 @@ function ProductFormContainer({ isEdit = false, data }) {
     const [brand, setBrand] = useState((data && data.b) || '');
     const [category, setCategory] = useState((data && data.c) || '');
     const [allCate, setAllCate] = useState(null);
+    const [allBrand, setAllBrand] = useState(null);
     const [files, setFiles] = useState([]);
     const onDrop = (acceptedFiles) => {
         setFiles([...files, ...acceptedFiles]);
@@ -45,7 +46,7 @@ function ProductFormContainer({ isEdit = false, data }) {
         multiple: true,
     });
 
-    const PRODUCT_URL = '/products';
+    const PRODUCT_URL = '/product';
 
     useEffect(() => {
         const getCategories = async () => {
@@ -57,6 +58,21 @@ function ProductFormContainer({ isEdit = false, data }) {
         getCategories();
         pnameRef.current?.focus();
     }, []);
+
+    useEffect(() => {
+        const getBrands = async () => {
+            try {
+                const response = await axiosPrivate.get('/get-brands-by-category/' + category);
+                const brandArrObj = response.data;
+                const brandArr = brandArrObj.map((brandObj) => brandObj.brand);
+                setAllBrand(brandArr);
+            } catch (error) {
+                setBrand('');
+                setAllBrand(null);
+            }
+        }
+        getBrands();
+    }, [category]);
 
     const setErrForEmptyReqFields = (reqFields) => {
         const emptyReqFields = [];
@@ -74,6 +90,7 @@ function ProductFormContainer({ isEdit = false, data }) {
 
     const handleSubmit = async (e) => {
         try {
+            console.log("brand", brand);
             const formData = new FormData();
             files.forEach((file, index) => {
                 formData.append('images', file);
@@ -94,13 +111,12 @@ function ProductFormContainer({ isEdit = false, data }) {
             switch (category) {
                 case "mobiles":
                     specFields = {
-                        modelNo, modelName, color, screenSizeWidth, screenSizeHeight,
-                        screenSizeUnit, resolutionWidth, resolutionHeight, resolutionType,
+                        modelNo, modelName, color, displaySize, displaySizeUnit, resolutionWidth, resolutionHeight, resolutionType,
                         os, pbrand, pmodel, pnoOfCores, pClockSpeed, ramSize, ramUnit, storageSize,
                         storageUnit, primaryCamera, secondaryCamera, batteryCapacity, networkType,
                         simType, speciality, features, manufacturerWarranty, inBoxWarrenty
                     };
-                    const specReqFields = { modelNo, modelName, screenSizeWidth, screenSizeHeight, ramSize, storageSize };
+                    const specReqFields = { modelNo, modelName, displaySize, resolutionHeight, resolutionWidth, ramSize, storageSize };
                     setErrForEmptyReqFields(specReqFields);
                     break;
                 default:
@@ -108,10 +124,11 @@ function ProductFormContainer({ isEdit = false, data }) {
             };
             const productInfo = { ...genericfields, ...specFields };
             removeEmptyFields(productInfo);
+            console.log(productInfo);
             Object.entries(productInfo).forEach(([key, value]) => {
                 formData.append(key, value);
             });
-            const response = await axios.post(PRODUCT_URL, formData, {
+            const response = await axios.post("http://localhost:3501" + PRODUCT_URL + '/add-product/' + category, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${auth.accessToken}`
@@ -136,7 +153,7 @@ function ProductFormContainer({ isEdit = false, data }) {
             <section className='field-container-product'>
                 <GenericForm brand={brand} setBrand={setBrand}
                     category={category} setCategory={setCategory}
-                    allCate={allCate}
+                    allCate={allCate} allBrand={allBrand}
                 />
                 <br />
                 <div className="card custom-card">
@@ -181,7 +198,7 @@ function ProductFormContainer({ isEdit = false, data }) {
                         )}
                     </div>
                 </div>
-                <br/>
+                <br />
                 <button
                     type="button"
                     className={"btn btn-primary submitbutton"}

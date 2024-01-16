@@ -8,9 +8,8 @@ function MobileSpecForm() {
     const mNoId = useId();
     const mNameId = useId();
     const colorId = useId();
-    const sSizeUnitId = useId();
-    const sWId = useId();
-    const sHId = useId();
+    const dSizeUnitId = useId();
+    const dSizeId = useId();
     const rWId = useId();
     const rHId = useId();
     const rType = useId();
@@ -39,8 +38,7 @@ function MobileSpecForm() {
 
     const { getNumericVal, errorFields, removeErrField } = useContext(GenericProductContext);
     const {
-        modelNo, setModelNo, modelName, setModelName, color, setColor, screenSizeWidth, setScreenSizeWidth, screenSizeHeight, setScreenSizeHeight,
-        screenSizeUnit, setScreenSizeUnit, resolutionWidth, setResolutionWidth, resolutionHeight, setResolutionHeight, resolutionType, setResolutionType,
+        modelNo, setModelNo, modelName, setModelName, color, setColor, displaySize, setDisplaySize, displaySizeUnit, setDisplaySizeUnit, resolutionWidth, setResolutionWidth, resolutionHeight, setResolutionHeight, resolutionType, setResolutionType,
         os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
         ramSize, setRamSize, ramUnit, setRamUnit, storageSize, setStorageSize, storageUnit, setStorageUnit,
         primaryCamera, setPrimaryCamera, secondaryCamera, setSecondaryCamera, batteryCapacity, setBatteryCapacity,
@@ -96,12 +94,12 @@ function MobileSpecForm() {
                 <h6>Display details</h6>
                 <div className="col-md-2 mb-3">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '100%' }}>
-                        <InputLabel id={sSizeUnitId}>Screen size unit</InputLabel>
+                        <InputLabel id={dSizeUnitId}>Display size unit</InputLabel>
                         <Select
-                            labelId={sSizeUnitId}
-                            value={screenSizeUnit}
-                            onChange={(e) => setScreenSizeUnit(e.target.value)}
-                            label="Screensize unit"
+                            labelId={dSizeUnitId}
+                            value={displaySizeUnit}
+                            onChange={(e) => setDisplaySize(e.target.value)}
+                            label="Display size unit"
                         >
                             <MenuItem value={'inch'}>inch</MenuItem>
                             <MenuItem value={'cm'}>cm</MenuItem>
@@ -111,44 +109,35 @@ function MobileSpecForm() {
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={sWId}>Screen width *</InputLabel>
+                        <InputLabel htmlFor={dSizeId}>Display size *</InputLabel>
                         <Input
-                            id={sWId}
-                            value={screenSizeWidth}
-                            onChange={(e) => { setScreenSizeWidth(getNumericVal(e)); removeErrField('screenSizeWidth') }}
+                            id={dSizeId}
+                            value={displaySize}
+                            onChange={(e) => { setDisplaySize(getNumericVal(e)); removeErrField('displaySize') }}
                         />
-                        {errorFields && errorFields?.includes('screenSizeWidth') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
+                        {errorFields && errorFields?.includes('displaySize') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={sHId}>Screen height *</InputLabel>
-                        <Input
-                            id={sHId}
-                            value={screenSizeHeight}
-                            onChange={(e) => { setScreenSizeHeight(getNumericVal(e)); removeErrField('screenSizeHeight') }}
-                        />
-                        {errorFields && errorFields?.includes('screenSizeHeight') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
-                    </FormControl>
-                </div>
-                <div className='col-md-2 mb-3'>
-                    <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={rWId}>Resolution width</InputLabel>
+                        <InputLabel htmlFor={rWId}>Resolution width *</InputLabel>
                         <Input
                             id={rWId}
                             value={resolutionWidth}
-                            onChange={(e) => setResolutionWidth(getNumericVal(e))}
+                            onChange={(e) => { setResolutionWidth(getNumericVal(e)); removeErrField('resolutionWidth') }}
                         />
+                        {errorFields && errorFields?.includes('resolutionWidth') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
                     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                        <InputLabel htmlFor={rHId}>Resolution height</InputLabel>
+                        <InputLabel htmlFor={rHId}>Resolution height *</InputLabel>
                         <Input
                             id={rHId}
                             value={resolutionHeight}
-                            onChange={(e) => setResolutionHeight(getNumericVal(e))}
+                            onChange={(e) => { setResolutionHeight(getNumericVal(e)); removeErrField('resolutionHeight') }}
                         />
+                        {errorFields && errorFields?.includes('resolutionHeight') && <p style={{ color: 'red', fontSize: '0.8rem' }}>{"This field is required"}</p>}
                     </FormControl>
                 </div>
                 <div className='col-md-2 mb-3'>
@@ -283,6 +272,7 @@ function MobileSpecForm() {
                         >
                             <MenuItem value={'GB'}>GB</MenuItem>
                             <MenuItem value={'MB'}>MB</MenuItem>
+                            <MenuItem value={'TB'}>TB</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

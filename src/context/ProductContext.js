@@ -8,9 +8,8 @@ export const ProductContextProvider = ({children}) => {
     const [modelNo, setModelNo] = useState('');
     const [modelName, setModelName] = useState('');
     const [color, setColor] = useState('');
-    const [screenSizeWidth, setScreenSizeWidth] = useState('');
-    const [screenSizeHeight, setScreenSizeHeight] = useState('');
-    const [screenSizeUnit, setScreenSizeUnit] =  useState('inch');
+    const [displaySize, setDisplaySize] = useState('');
+    const [displaySizeUnit, setDisplaySizeUnit] =  useState('inch');
     const [resolutionWidth, setResolutionWidth] = useState('');
     const [resolutionHeight, setResolutionHeight] = useState('');
     const [resolutionType, setResolutionType] = useState('');
@@ -37,9 +36,8 @@ export const ProductContextProvider = ({children}) => {
         setModelNo('');
         setModelName('');
         setColor('');
-        setScreenSizeWidth('');
-        setScreenSizeHeight('')
-        setScreenSizeUnit('inch');
+        setDisplaySize('')
+        displaySizeUnit('inch');
         setResolutionWidth('');
         setResolutionHeight('');
         setResolutionType('');
@@ -66,8 +64,8 @@ export const ProductContextProvider = ({children}) => {
 
     return ( 
         <ProductContext.Provider value={{
-            modelNo, setModelNo, modelName, setModelName, color, setColor, screenSizeWidth, setScreenSizeWidth, screenSizeHeight, setScreenSizeHeight, 
-            screenSizeUnit, setScreenSizeUnit, resolutionWidth, setResolutionWidth, resolutionHeight, setResolutionHeight, resolutionType, setResolutionType,
+            modelNo, setModelNo, modelName, setModelName, color, setColor, displaySize, setDisplaySize, displaySizeUnit, setDisplaySizeUnit, 
+            resolutionWidth, setResolutionWidth, resolutionHeight, setResolutionHeight, resolutionType, setResolutionType,
             os, setOs, pbrand, setPbrand, pmodel, setPmodel, pnoOfCores, setPnoOfCores, pClockSpeed, setPClockSpeed,
             ramSize, setRamSize, ramUnit, setRamUnit, storageSize, setStorageSize, storageUnit, setStorageUnit,
             primaryCamera, setPrimaryCamera, secondaryCamera, setSecondaryCamera, batteryCapacity, setBatteryCapacity,
