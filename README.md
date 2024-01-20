@@ -1,1 +1,1 @@
-## Image uploader UI
+## Shopswiftly admin ui
