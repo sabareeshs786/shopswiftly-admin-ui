@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { axiosPrivate } from '../api/axios';
+import { axiosInvPrivate } from '../api/axios';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableContext from '../context/TableContext';
@@ -32,7 +32,7 @@ export default function DelAlertDialog({ tablename, data }) {
     const handleDeleteConfirmClick = async () => {
         try {
             const queryParam = { bcCode: data.bcCode };
-            const response = await axiosPrivate.delete(URL, { params: queryParam });
+            const response = await axiosInvPrivate.delete(URL, { params: queryParam });
             setDelNotify(true);
             setNoteType('success');
             setMessage('Deleted successfully');

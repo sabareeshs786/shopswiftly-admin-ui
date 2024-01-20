@@ -7,8 +7,8 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 function MyTableBody({ tablename }) {
     const { brandColumns, productColumns, StyledTableCell, StyledTableRow } = useContext(TableContext);
-    const axiosPrivate = useAxiosPrivate();
-    
+    const { axiosInvPrivate } = useAxiosPrivate();
+
     let columns;
     let URL;
     switch (tablename.toLowerCase()) {
@@ -22,7 +22,7 @@ function MyTableBody({ tablename }) {
             break;
         default:
             columns = brandColumns;
-            URL='/brands'
+            URL = '/brands'
     };
 
     const [rows, setRows] = useState(null);
@@ -30,11 +30,16 @@ function MyTableBody({ tablename }) {
 
     useEffect(() => {
         const getData = async () => {
-            const queryParam = { page, pageSize };
-            const response = await axiosPrivate.get(URL, { params: queryParam });
-            const rows = getBrandRows(response.data.brands, (page - 1) * pageSize);
-            setRows(rows);
-            setPageCount(Math.ceil(response.data.totalCount / pageSize));
+            try {
+                const queryParam = { page, pageSize };
+                const response = await axiosInvPrivate.get(URL, { params: queryParam });
+                console.log(response);
+                const rows = getBrandRows(response.data.brands, (page - 1) * pageSize);
+                setRows(rows);
+                setPageCount(Math.ceil(response.data.totalCount / pageSize));
+            } catch (error) {
+                console.log(error);
+            }
         };
         getData();
     }, [page, pageSize, update]);

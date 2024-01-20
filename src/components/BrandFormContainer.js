@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import SubmitButton from './generic/SubmitButton';
-import { axiosPrivate } from '../api/axios';
+import { axiosInvPrivate } from '../api/axios';
 import NotificationBar from './generic/NotificationBar';
 import { isvalidInputData } from '../utils/ValidateInput';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
@@ -19,10 +19,14 @@ function BrandFormContainer({ isEdit, data }) {
 
     useEffect(() => {
         const getCategories = async () => {
-            const response = await axiosPrivate.get('/categories');
-            const cateArrObj = response.data;
-            const cateArr = cateArrObj.map((cateObj) => cateObj.category)
-            setAllCate(cateArr);
+            try {
+                const response = await axiosInvPrivate.get('/categories');
+                const cateArrObj = response.data;
+                const cateArr = cateArrObj.map((cateObj) => cateObj.category)
+                setAllCate(cateArr);
+            } catch (error) {
+                console.log(error);
+            }
         }
         getCategories();
         brandRef.current?.focus();
@@ -34,7 +38,7 @@ function BrandFormContainer({ isEdit, data }) {
             if ((isEdit && !isvalidInputData({ brand, category, bcCode })) || !isvalidInputData({ brand, category })) {
                 throw new Error("Invalid input data");
             }
-            const response = isEdit ? await axiosPrivate.put(BRAND_URL, { brand, category, bcCode }) : await axiosPrivate.post(BRAND_URL, { brand, category });
+            const response = isEdit ? await axiosInvPrivate.put(BRAND_URL, { brand, category, bcCode }) : await axiosInvPrivate.post(BRAND_URL, { brand, category });
             setNotify(true);
             setNoteType('success');
             setMessage(response?.data?.message);

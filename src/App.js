@@ -13,8 +13,9 @@ import RequireAuth from './components/authentication/RequireAuth';
 
 function App() {
   const ROLES = {
-    'Editor': 1984078,
-    'Admin': 51507865
+    "Admin": 51507865,
+    "Editor": 1984078,
+    "User": 2001345
   }
   return (
     <Routes>

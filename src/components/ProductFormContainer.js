@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { axiosPrivate } from '../api/axios';
+import { axiosInvPrivate } from '../api/axios';
 import axios from 'axios';
 import NotificationBar from './generic/NotificationBar';
 import MobileSpecForm from './MobileSpecForm';
@@ -50,10 +50,14 @@ function ProductFormContainer({ isEdit = false, data }) {
 
     useEffect(() => {
         const getCategories = async () => {
-            const response = await axiosPrivate.get('/categories');
-            const cateArrObj = response.data;
-            const cateArr = cateArrObj.map((cateObj) => cateObj.category)
-            setAllCate(cateArr);
+            try {
+                const response = await axiosInvPrivate.get('/categories');
+                const cateArrObj = response.data;
+                const cateArr = cateArrObj.map((cateObj) => cateObj.category)
+                setAllCate(cateArr);
+            } catch (error) {
+                console.log(error);
+            }
         }
         getCategories();
         pnameRef.current?.focus();
@@ -62,7 +66,7 @@ function ProductFormContainer({ isEdit = false, data }) {
     useEffect(() => {
         const getBrands = async () => {
             try {
-                const response = await axiosPrivate.get('/get-brands-by-category/' + category);
+                const response = await axiosInvPrivate.get('/get-brands-by-category/' + category);
                 const brandArrObj = response.data;
                 const brandArr = brandArrObj.map((brandObj) => brandObj.brand);
                 setAllBrand(brandArr);

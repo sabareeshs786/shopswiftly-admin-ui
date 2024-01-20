@@ -4,7 +4,7 @@ import TableContext from '../context/TableContext';
 import NotificationBar from './generic/NotificationBar';
 import CollapsibleTable from './ProductsTable';
 import CategoryDropdown from './CategoryDropdown';
-import { axiosPrivate } from '../api/axios';
+import { axiosInvPrivate } from '../api/axios';
 import AddEditModalProduct from './AddEditModalProducts';
 import { ProductContextProvider } from '../context/ProductContext';
 import { GenericProductContextProvider } from '../context/GenericProductContext';
@@ -17,7 +17,7 @@ function Products() {
     useEffect(() => {
         const getCategories = async () => {
             try {
-                const response = await axiosPrivate.get('/categories');
+                const response = await axiosInvPrivate.get('/categories');
                 const cateArrObj = response.data;
                 const cateArr = cateArrObj.map((cateObj) => cateObj.category);
                 console.log(cateArr);
