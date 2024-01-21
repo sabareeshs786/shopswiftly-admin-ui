@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ItemContext, { ItemContextProvider } from '../context/ItemContextProvider';
 import ItemListPagination from './ItemListPagination';
-import LoadingAnimation from './LoadingAnimation';
+import LoadingAnimation from './generic/LoadingAnimation';
 import Brands from './Brands';
 import Products from './Products';
 import Inventory from './Inventory';

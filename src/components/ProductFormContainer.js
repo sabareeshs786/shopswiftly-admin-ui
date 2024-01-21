@@ -94,7 +94,6 @@ function ProductFormContainer({ isEdit = false, data }) {
 
     const handleSubmit = async (e) => {
         try {
-            console.log("brand", brand);
             const formData = new FormData();
             files.forEach((file, index) => {
                 formData.append('images', file);
@@ -132,7 +131,7 @@ function ProductFormContainer({ isEdit = false, data }) {
             Object.entries(productInfo).forEach(([key, value]) => {
                 formData.append(key, value);
             });
-            const response = await axios.post("http://localhost:3501" + PRODUCT_URL + '/add-product/' + category, formData, {
+            const response = await axios.post("http://localhost:3501" + PRODUCT_URL + '/add-product/mobiles' + category, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${auth.accessToken}`
@@ -151,6 +150,12 @@ function ProductFormContainer({ isEdit = false, data }) {
     const handleReset = () => {
         setFiles([]);
     }
+
+    const handleImageChange = (e) => {
+        const images = Array.from(e.target.files);
+        console.log(images);
+        setFiles(images);
+      };
 
     return (
         <>
@@ -172,10 +177,8 @@ function ProductFormContainer({ isEdit = false, data }) {
                 <br />
                 <div className="card custom-card">
                     <div className="card-body">
-                        <div {...getRootProps({ className: 'dropzone' })}>
-                            <input {...getInputProps()} />
-                            <p className='image-drag-n-drop'>Drag 'n' drop images here, or click to select files</p>
-                        </div>
+                        <label>Images:</label>
+                        <input type="file" name="images" multiple onChange={handleImageChange} />
 
                         {files.length > 0 && (
                             <div>

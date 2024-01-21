@@ -4,7 +4,7 @@ import '../../css/login.css';
 import ErrorMsg from '../generic/ErrorMsg';
 import LoginForm from './LoginForm';
 import Notice from './Notice';
-import Help from '../Help';
+import Help from '../generic/Help';
 import LoginContext from '../../context/LoginContext';
 
 function LoginContainer() {
