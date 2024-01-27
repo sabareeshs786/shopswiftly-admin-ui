@@ -131,7 +131,7 @@ function ProductFormContainer({ isEdit = false, data }) {
             Object.entries(productInfo).forEach(([key, value]) => {
                 formData.append(key, value);
             });
-            const response = await axios.post("http://localhost:3501" + PRODUCT_URL + '/add-product/mobiles' + category, formData, {
+            const response = await axios.post("http://localhost:3501" + PRODUCT_URL + '/add-product/' + category, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${auth.accessToken}`
