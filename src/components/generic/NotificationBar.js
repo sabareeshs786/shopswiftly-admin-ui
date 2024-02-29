@@ -17,7 +17,7 @@ export default function NotificationBar({notify, setNotify, noteType, message })
             return;
         }
         setOpen && setOpen(false);
-        setNotify(false);
+        setNotify && setNotify(false);
         setDelNotify && setDelNotify(false);
     };
 
